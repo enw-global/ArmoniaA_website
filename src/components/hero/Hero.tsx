@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { sanityClient } from "../../lib/sanity";
+
+import { FaChevronDown } from "react-icons/fa6";
 
 interface VideoAsset {
   _id: string;
@@ -9,6 +11,8 @@ interface VideoAsset {
 
 const Hero = () => {
   const [video, setVideo] = useState<string | null>(null);
+  const videoRef1 = useRef<HTMLVideoElement>(null);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     sanityClient
@@ -22,20 +26,70 @@ const Hero = () => {
       })
       .catch((err) => console.error("Sanity failed to fetch data:", err));
   }, []);
+
+  useEffect(() => {
+    if (!video) return;
+
+    const v1 = videoRef1.current;
+    const v2 = videoRef2.current;
+
+    const onLoaded = () => {
+      v1?.play().catch(() => {});
+      v2?.play().catch(() => {});
+    };
+
+    v1?.addEventListener("loadedmetadata", onLoaded);
+
+    return () => {
+      v1?.removeEventListener("loadedmetadata", onLoaded);
+    };
+  }, [video]);
   if (!video) return <p>Loading video…</p>;
+
   return (
-    <section className="h-screen bg-black flex justify-center py-20">
-      <video
-        controls
-        autoPlay
-        muted
-        controlsList="nodownload nofullscreen noremoteplayback"
-        disablePictureInPicture
-        className="max-w-[100%]"
-      >
-        <source src={video} type="video/mp4" />
-      </video>
-    </section>
+    <>
+      <section className="hidden sm:flex h-[87.5vh] bg-black justify-center">
+        <video
+          ref={videoRef1}
+          src={video}
+          controls
+          autoPlay
+          muted
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          className="max-w-full"
+        />
+      </section>
+
+      <section className="flex sm:hidden flex-col h-full bg-black pb-10">
+        <video
+          ref={videoRef1}
+          src={video}
+          muted
+          loop
+          autoPlay
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          className="w-full flex-1 object-cover"
+        />
+        <video
+          ref={videoRef2}
+          src={video}
+          muted
+          loop
+          autoPlay
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          className="w-full flex-1 object-cover"
+        />
+      </section>
+
+      <div className="bg-black flex justify-center">
+        <button className="cursor-pointer">
+          <FaChevronDown className="text-white text-3xl" />
+        </button>
+      </div>
+    </>
   );
 };
 

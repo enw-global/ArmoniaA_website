@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "DrukTrial";
+  src: url("./assets/fonts/Druk-Heavy-Trial.otf");
+}
+
+.druk-title {
+  font-family: "DrukTrial", sans-serif;
+}
+
 @layer components {
   .align-element {
     @apply mx-auto max-w-[95%] px-2;
