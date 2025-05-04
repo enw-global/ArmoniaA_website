@@ -24,7 +24,7 @@ const Hero = () => {
   }, []);
   if (!video) return <p>Loading video…</p>;
   return (
-    <section className="h-screen bg-black flex justify-center">
+    <section className="h-screen bg-black flex justify-center py-20">
       <video
         controls
         autoPlay
