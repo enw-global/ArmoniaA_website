@@ -2,6 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { sanityClient } from "../../lib/sanity";
 
 import { FaChevronDown } from "react-icons/fa6";
+import { FaChevronUp } from "react-icons/fa6";
+
+import { useContext } from "react";
+import { InfoContext } from "../../context/InfoContext";
 
 interface VideoAsset {
   _id: string;
@@ -13,6 +17,8 @@ const Hero = () => {
   const [video, setVideo] = useState<string | null>(null);
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
+
+  const { activeInfo, setActiveInfo } = useContext(InfoContext);
 
   useEffect(() => {
     sanityClient
@@ -54,6 +60,7 @@ const Hero = () => {
           src={video}
           controls
           autoPlay
+          loop
           muted
           controlsList="nodownload nofullscreen noremoteplayback"
           disablePictureInPicture
@@ -85,8 +92,15 @@ const Hero = () => {
       </section>
 
       <div className="bg-black flex justify-center">
-        <button className="cursor-pointer">
-          <FaChevronDown className="text-white text-3xl" />
+        <button
+          className="cursor-pointer"
+          onClick={() => setActiveInfo(!activeInfo)}
+        >
+          {!activeInfo ? (
+            <FaChevronDown className="text-white text-3xl" />
+          ) : (
+            <FaChevronUp className="text-white text-3xl" />
+          )}
         </button>
       </div>
     </>
