@@ -6,6 +6,7 @@ import { FaChevronUp } from "react-icons/fa6";
 
 import { useContext } from "react";
 import { InfoContext } from "../../context/InfoContext";
+import CountdownTimer from "../CountdownTimer";
 
 interface VideoAsset {
   _id: string;
@@ -13,7 +14,7 @@ interface VideoAsset {
   url: string;
 }
 
-const Hero = () => {
+const Hero = ({ targetDate }: { targetDate: Date }) => {
   const [video, setVideo] = useState<string | null>(null);
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
@@ -68,7 +69,7 @@ const Hero = () => {
         />
       </section>
 
-      <section className="flex sm:hidden flex-col h-full bg-black pb-10">
+      <section className="flex sm:hidden flex-col h-full bg-black pb-14 px-5">
         <video
           ref={videoRef1}
           src={video}
@@ -77,7 +78,7 @@ const Hero = () => {
           autoPlay
           controlsList="nodownload nofullscreen noremoteplayback"
           disablePictureInPicture
-          className="w-full flex-1 object-cover"
+          className="w-full flex-1 object-cover pb-5"
         />
         <video
           ref={videoRef2}
@@ -89,6 +90,7 @@ const Hero = () => {
           disablePictureInPicture
           className="w-full flex-1 object-cover"
         />
+        <CountdownTimer targetDate={targetDate} />
       </section>
 
       <div className="bg-black flex justify-center">
