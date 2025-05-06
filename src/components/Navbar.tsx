@@ -29,12 +29,16 @@ const Navbar = () => {
                 className=" a-mother-spark-button cursor-pointer w-[50%] md:w-[75%] lg:w-full"
               />
             </DialogTrigger>
-            <DialogContent className="h-[375px] flex flex-col justify-between border-2">
-              <DialogHeader className="border-2">
+            <DialogContent className="h-[375px] flex flex-col justify-between">
+              <DialogHeader>
                 <DialogTitle>5% of all proceeds go to a_Mother</DialogTitle>
               </DialogHeader>
-              <DialogDescription className="border-2">
-                <img src="/Logo.png" alt="" />
+              <DialogDescription>
+                <img
+                  src="/Logo.png"
+                  alt=""
+                  className="absolute bottom-0 w-[90%] mb-5"
+                />
               </DialogDescription>
             </DialogContent>
           </Dialog>
