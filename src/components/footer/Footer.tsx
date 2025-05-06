@@ -12,7 +12,7 @@ const Footer = () => {
         <Newsletter />
       </div>
       <div className=" flex justify-center items-center">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-10 place-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-10 px-5 lg:px-10 place-items-center">
           <img src={Logo1} alt="" />
           <img src={Logo2} alt="" />
           <img src={Logo3} alt="" />

@@ -40,10 +40,10 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-6 w-sm">
+    <div className="flex flex-col items-center space-y-10 w-sm">
       <h2 className="text-xl font-medium text-white">Email Sign-up</h2>
 
-      <form onSubmit={handleSubmit} className="w-full">
+      <form onSubmit={handleSubmit} className="w-[80%] lg:w-full">
         <div className="relative">
           <Input
             type="email"
