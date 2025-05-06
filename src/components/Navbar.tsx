@@ -9,16 +9,16 @@ import {
 
 const Navbar = () => {
   return (
-    <header className="bg-black h-18 flex flex-col justify-center">
+    <header className="bg-black fixed h-18 flex flex-col justify-center w-full z-10">
       <nav className=" w-full">
         <div className="align-element flex flex-row justify-between items-center  px-4">
-          <div className="bg-black  w-12 h-12"></div>
+          <div className="bg-black  lg:w-12 lg:h-12"></div>
           {/* TODO: Implement a modal that will open upon clicking the a Mother Spark button */}
           <a href="/" className=" flex justify-center">
             <img
               src="/armonia_a_logo.png"
               alt="Armonia A logo"
-              className="sm:w-96 lg:w-full  "
+              className="w-60 md:w-80 lg:w-full"
             />
           </a>
           <Dialog>
@@ -26,7 +26,7 @@ const Navbar = () => {
               <img
                 src="/a_Mother_Spark_button.png"
                 alt="a Mother Modal"
-                className=" a-mother-spark-button cursor-pointer"
+                className=" a-mother-spark-button cursor-pointer w-[50%] md:w-[75%] lg:w-full"
               />
             </DialogTrigger>
             <DialogContent className="h-[375px] flex flex-col justify-between border-2">
