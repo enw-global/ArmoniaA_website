@@ -49,7 +49,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
   if (!video) return <p className="text-center text-white">Loading video…</p>;
 
   return (
-    <div className="flex flex-col min-h-[90vh] bg-black">
+    <div className="relative flex flex-col justify-center items-center min-h-screen bg-black">
       <section className="hidden lg:flex flex-grow justify-center items-center">
         <video
           ref={videoRef1}
@@ -64,7 +64,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
         />
       </section>
 
-      <section className="relative flex flex-col gap-10 md:gap-20 lg:hidden flex-grow  items-center px-5 pt-10 text-center">
+      <section className="relative flex flex-col gap-5 md:gap-20 lg:hidden flex-grow justify-center  items-center px-3 pt-10 text-center">
         <div>
           <video
             ref={videoRef1}
@@ -92,7 +92,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
         </div>
       </section>
 
-      <div className="flex justify-center py-6">
+      <div className="absolute bottom-0 flex justify-center py-6">
         <button className="cursor-pointer" onClick={onScrollDown}>
           <FaChevronDown className="text-white text-3xl" />
         </button>

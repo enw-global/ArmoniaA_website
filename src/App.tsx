@@ -13,9 +13,14 @@ function App() {
   // TODO: Store data in a database per project
   const target = new Date("2025-06-02T00:00:00");
   const projectInfoRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   const scrollToProjectInfo = () => {
     projectInfoRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToFooter = () => {
+    footerRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -24,9 +29,11 @@ function App() {
       <MouseFollowCountdown targetDate={target} />
       <Hero targetDate={target} onScrollDown={scrollToProjectInfo} />
       <div ref={projectInfoRef}>
-        <ProjectInfo />
+        <ProjectInfo onScrollDown={scrollToFooter} />
       </div>
-      <Footer />
+      <div ref={footerRef}>
+        <Footer />
+      </div>
     </>
   );
 }

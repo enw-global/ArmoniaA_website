@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { FaChevronDown } from "react-icons/fa6";
 
-const ProjectInfo = () => {
+const ProjectInfo = ({ onScrollDown }: { onScrollDown: () => void }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
@@ -11,7 +12,7 @@ const ProjectInfo = () => {
   }, [isMobile]);
 
   return (
-    <section className="h-screen bg-black flex justify-center items-center text-white">
+    <section className="relative h-screen bg-black flex flex-col justify-center items-center text-white">
       {!isMobile ? (
         <div className="text-center  flex flex-col justify-center items-center gap-10">
           <div>
@@ -55,6 +56,11 @@ const ProjectInfo = () => {
           </div>
         </div>
       )}
+      <div className="absolute bottom-0 flex justify-center py-6">
+        <button className="cursor-pointer" onClick={onScrollDown}>
+          <FaChevronDown className="text-white text-3xl" />
+        </button>
+      </div>
     </section>
   );
 };
