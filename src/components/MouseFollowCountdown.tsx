@@ -62,11 +62,10 @@ const MouseFollowCountdown: React.FC<CountdownProps> = ({
       ref={timerRef}
       style={{
         position: "fixed",
-        top: 0,
+        top: -20,
         left: 5,
         transform: "translate3d(0, 0, 0)",
         pointerEvents: "none",
-        background: "rgba(0, 0, 0, 0.6)",
         color: "#fff",
         padding: "4px 8px",
         borderRadius: "4px",
