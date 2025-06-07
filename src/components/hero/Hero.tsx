@@ -50,7 +50,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
 
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen bg-black">
-      <section className="hidden lg:flex flex-grow justify-center items-center">
+      <section className="hidden lg:flex flex-grow justify-center py-10 items-center">
         <video
           ref={videoRef1}
           src={video}
@@ -59,11 +59,11 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
           muted
           controlsList="nodownload nofullscreen noremoteplayback"
           disablePictureInPicture
-          className="max-w-full max-h-full object-contain"
+          className="max-w-[95%] max-h-full object-contain"
         />
       </section>
 
-      <section className="relative flex flex-col gap-5 md:gap-20 lg:hidden flex-grow justify-center  items-center px-3 pt-10 text-center">
+      <section className="relative flex flex-col gap-10 md:gap-20 lg:hidden flex-grow justify-center  items-center px-3 py-20 text-center">
         <div>
           <video
             ref={videoRef1}

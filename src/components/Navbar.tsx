@@ -77,17 +77,16 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="bg-transparent fixed h-18 flex flex-col justify-center w-full z-50">
+    <header className="bg-transparent fixed h-16 flex flex-col justify-center w-full z-50">
       <nav className=" w-full">
-        <div className="align-element flex flex-row justify-between items-center  px-4">
-          <div className="bg-black  lg:w-12 lg:h-12"></div>
+        <div className="align-element flex flex-row justify-between items-center">
+          <div className="bg-black"></div>
           <div className="mix-blend-difference">
-            {/* TODO: Implement a modal that will open upon clicking the a Mother Spark button */}
             <a href="/" className="flex justify-center">
               <img
                 src="/armonia_a_logo.png"
                 alt="Armonia A logo"
-                className="w-60 md:w-80 lg:w-full transition duration-200 "
+                className="w-40 md:w-80 lg:w-full transition duration-200 "
               />
             </a>
           </div>
@@ -118,7 +117,7 @@ const Navbar = () => {
                     className="w-screen h-screen"
                   >
                     <DialogHeader className="flex flex-row justify-between w-[92.5vw] items-center">
-                      <DialogTitle className="mx-3 text-start">
+                      <DialogTitle className="mx-3 text-start text-sm">
                         5% of all proceeds go to a_Mother
                       </DialogTitle>
                         <button
