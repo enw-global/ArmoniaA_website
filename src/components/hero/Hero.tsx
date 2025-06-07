@@ -54,7 +54,6 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
         <video
           ref={videoRef1}
           src={video}
-
           autoPlay
           loop
           muted

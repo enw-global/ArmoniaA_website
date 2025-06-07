@@ -23,7 +23,8 @@ body {
 
   .a-mother-spark-button {
     @apply [filter:brightness(0)_saturate(100%)_invert(1)]
-    hover:[filter:brightness(0)_saturate(100%)_invert(14%)_sepia(1)_saturate(6500%)_hue-rotate(-7deg)_brightness(100%)_contrast(60%)];
+    hover:[filter:brightness(0)_saturate(100%)_invert(14%)_sepia(1)_saturate(6500%)_hue-rotate(-7deg)_brightness(100%)_contrast(60%)]
+    active:[filter:brightness(0)_saturate(100%)_invert(14%)_sepia(1)_saturate(6500%)_hue-rotate(-7deg)_brightness(100%)_contrast(60%)];
   }
 }
 
