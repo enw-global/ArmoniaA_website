@@ -59,7 +59,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
           muted
           controlsList="nodownload nofullscreen noremoteplayback"
           disablePictureInPicture
-          className="max-w-[95%] max-h-full object-contain"
+          className="max-w-full max-h-full object-contain"
         />
       </section>
 

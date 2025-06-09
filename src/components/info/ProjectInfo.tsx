@@ -1,62 +1,47 @@
-import { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 
+import BlurredRealityLogo from "../../assets/logos/Blurred_Reality_Logo.png";
+
 const ProjectInfo = ({ onScrollDown }: { onScrollDown: () => void }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => {
-    const checkIsMobile = () => setIsMobile(window.innerWidth <= 1024);
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, [isMobile]);
-
   return (
     <section className="relative h-screen bg-black flex flex-col justify-center items-center text-white">
-      {!isMobile ? (
-        <div className="text-center  flex flex-col justify-center items-center gap-10">
-          <div>
-            <h1 className="text-white druk-title text-[102px] leading-20">
-              BLURRED REALITY
-            </h1>
-            <h2 className="text-3xl">A short Film</h2>
-          </div>
-          <div>
-            <img src="/armonia_a_logo.png" alt="" width={225} />
-            <p>Re-Engineering the human experience.</p>
-          </div>
-          <div>
-            <ul className="text-start list-disc">
-              <li>Creative self-sufficiency</li>
-              <li>Reshaping connotations associated to the foreign body. </li>
-              <li>
-                In a futuristic setting, the vibrant accent tones conveyed
-                through chrome and silver detailing.
-              </li>
-              <li>Looking at the world through an Afrofuturist lens</li>
-            </ul>
-          </div>
+      <div className="text-center  flex flex-col justify-center items-center gap-20">
+        <div className="space-y-5">
+          <img
+            src={BlurredRealityLogo}
+            alt="Blurred Reality Logo"
+            className=" w-full md:max-w-4xl lg:max-w-5xl px-10"
+          />
+          <h2 className="lg:text-4xl text-2xl">A Short Film</h2>
         </div>
-      ) : (
-        <div className="text-center flex flex-col justify-center items-center  align-element">
-          <div>
-            <h1 className="text-white text-3xl leading-20">BLURRED REALITY</h1>
-          </div>
 
-          <div>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consectetur temporibus numquam iste id illum dolores itaque unde?
-              Harum provident voluptas cupiditate pariatur hic repudiandae
-              tenetur! Beatae dicta eligendi fuga odio, ea doloribus neque
-              possimus ex magni, cupiditate et minima officiis harum repudiandae
-              tenetur dolores rerum voluptatum veritatis aliquam nostrum!
-              Voluptates?
-            </p>
-          </div>
+        <div className="w-full max-w-sm sm:max-w-xs lg:max-w-5xl px-7">
+          <ul className="text-start flex flex-col md:flex-col lg:flex-row gap-5">
+            {[
+              "Rooted in clarity, born from complexity, and shaped by honest intent.",
+              "Unity without erasure, creating frameworks that honour. ",
+              "Provoking dialogue where silence has lingered.",
+              "Addressing blind spots with precision and care.",
+            ].map((text, idx) => (
+              <li
+          key={idx}
+          className="flex flex-row items-start gap-3 w-full lg:w-96"
+              >
+          <span className="flex-shrink-0 text-5xl md:text-4xl lg:text-7xl flex items-center justify-center font-bold">
+            {idx + 1}
+          </span>
+          <span className="text-sm flex justify-center h-full items-center">
+            {text}
+          </span>
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
-      <div className="absolute bottom-0 flex justify-center py-6">
+        
+      </div>
+
+      <div className="absolute bottom-0 flex justify-center py-6 flex-col items-center space-y-5">
+        <p>Re-Engineering the human experience.</p>
         <button className="cursor-pointer" onClick={onScrollDown}>
           <FaChevronDown className="text-white text-3xl" />
         </button>

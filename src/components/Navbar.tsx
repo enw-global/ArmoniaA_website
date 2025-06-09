@@ -77,16 +77,16 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="bg-transparent fixed h-16 flex flex-col justify-center w-full z-50">
+    <header className=" bg-transparent fixed h-16 flex flex-col justify-center w-full z-50">
       <nav className=" w-full">
-        <div className="align-element flex flex-row justify-between items-center">
+        <div className=" align-element flex flex-row justify-between items-center">
           <div className="bg-black"></div>
-          <div className="mix-blend-difference">
+          <div>
             <a href="/" className="flex justify-center">
               <img
                 src="/armonia_a_logo.png"
                 alt="Armonia A logo"
-                className="w-40 md:w-80 lg:w-full transition duration-200 "
+                className="w-40 lg:w-80  transition duration-200 "
               />
             </a>
           </div>
