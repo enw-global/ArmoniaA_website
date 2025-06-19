@@ -1,19 +1,17 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 @import "tailwindcss";
-@import "tw-animate-css";
+
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: "DrukTrial";
-  src: url("./assets/fonts/Druk-Heavy-Trial.otf");
-}
 
-.druk-title {
-  font-family: "DrukTrial", sans-serif;
+.inter-font {
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  background-color: black;
+  font-family: 'Inter', sans-serif;
 }
 
 @layer components {

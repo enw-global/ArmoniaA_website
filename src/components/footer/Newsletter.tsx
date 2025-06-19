@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import { toast } from "@/components/ui/use-toast";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -11,29 +12,24 @@ const Newsletter = () => {
     e.preventDefault();
 
     if (!email || !email.includes("@")) {
-      toast({
-        title: "Invalid email",
-        description: "Please enter a valid email address.",
-        variant: "destructive",
-      });
+      toast("Please enter a valid email address.");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      toast({
-        title: "Success!",
-        description: "Thank you for signing up!",
-      });
-
+      const response = await axios.post(
+        "https://armoniaa-backend.onrender.com/api/subscribe",
+        {
+          email,
+        }
+      );
+      toast.success("Thank you for signing up!");
       setEmail("");
+      return response.data;
     } catch (error) {
-      toast({
-        title: "Something went wrong",
-        description: "Please try again later.",
-        variant: "destructive",
-      });
+      toast.error("Something went wrong. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
@@ -73,14 +69,17 @@ const Newsletter = () => {
 
       <div className="flex gap-6">
         <a
-          href="#"
+          href="mailto:european.new.wave@gmail.com"
           className="text-white text-xs tracking-wide hover:underline"
         >
           EMAIL
         </a>
         <a
-          href="#"
+          target="_blank"
+          href="https://www.instagram.com/european.new.wave/"
           className="text-white text-xs tracking-wide hover:underline"
+          rel="noopener noreferrer"
+          aria-label="Follow us on Instagram"
         >
           INSTAGRAM
         </a>

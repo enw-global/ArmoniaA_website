@@ -7,7 +7,7 @@ import Newsletter from "./Newsletter";
 const Footer = () => {
   let copyright = `© ${new Date().getFullYear()} armonia-a.com`;
   return (
-    <footer className="h-screen flex flex-col">
+    <footer className="h-screen flex flex-col bg-black">
       <div className="h-full justify-center items-center flex flex-1 ">
         <Newsletter />
       </div>

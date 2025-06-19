@@ -9,6 +9,8 @@ import ProjectInfo from "./components/info/ProjectInfo";
 
 import MouseFollowCountdown from "./components/MouseFollowCountdown";
 
+import { ToastContainer } from "react-toastify";
+
 function App() {
   // TODO: Store data in a database per project
   const target = new Date("2025-06-02T00:00:00");
@@ -26,6 +28,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <ToastContainer position="top-center"/>
       <MouseFollowCountdown targetDate={target} />
       <Hero targetDate={target} onScrollDown={scrollToProjectInfo} />
       <div ref={projectInfoRef}>
