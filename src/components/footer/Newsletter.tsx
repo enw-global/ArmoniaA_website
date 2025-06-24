@@ -37,7 +37,7 @@ const Newsletter = () => {
 
   return (
     <div className="flex flex-col items-center space-y-10 w-sm">
-      <h2 className="text-xl font-medium text-white">Email Sign-up</h2>
+      <h2 className="text-xl font-medium text-white">Subscribe to our Mailing List</h2>
 
       <form onSubmit={handleSubmit} className="w-[80%] lg:w-full">
         <div className="relative">
@@ -69,12 +69,6 @@ const Newsletter = () => {
 
       <div className="flex gap-6">
         <a
-          href="mailto:european.new.wave@gmail.com"
-          className="text-white text-xs tracking-wide hover:underline"
-        >
-          EMAIL
-        </a>
-        <a
           target="_blank"
           href="https://www.instagram.com/european.new.wave/"
           className="text-white text-xs tracking-wide hover:underline"
@@ -84,16 +78,20 @@ const Newsletter = () => {
           INSTAGRAM
         </a>
         <a
-          href="#"
+          target="_blank"
+          href="https://www.tiktok.com/european.new.wave/"
           className="text-white text-xs tracking-wide hover:underline"
+          rel="noopener noreferrer"
+          aria-label="Follow us on Instagram"
         >
           TIKTOK
         </a>
         <a
-          href="#"
+          target="_blank"
+          href="https://www.threads.com/european.new.wave/"
           className="text-white text-xs tracking-wide hover:underline"
         >
-          X
+          THREADS
         </a>
       </div>
     </div>

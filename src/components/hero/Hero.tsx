@@ -50,18 +50,24 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
 
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen bg-black">
-      <section className="hidden lg:flex flex-grow justify-center py-10 items-center">
-        <video
-          ref={videoRef1}
-          src={video}
-          autoPlay
-          loop
-          muted
-          controlsList="nodownload nofullscreen noremoteplayback"
-          disablePictureInPicture
-          className="max-w-full max-h-full object-contain"
-        />
-      </section>
+      <a
+        target="_blank"
+        href="https://www.youtube.com/channel/UCpaFxqAl9XVtBVAAdfKx3hw"
+        className="hover:border-2 rounded-3xl transition duration-400 border-white/20 hover:border-white/50 w-full lg:w-[80%] max-w-5xl ease-in-out"
+      >
+        <section className="hidden lg:flex flex-grow justify-center py-10 items-center">
+          <video
+            ref={videoRef1}
+            src={video}
+            autoPlay
+            loop
+            muted
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            className="max-w-full max-h-full object-contain"
+          />
+        </section>
+      </a>
 
       <section className="relative flex flex-col gap-10 md:gap-20 lg:hidden flex-grow justify-center  items-center px-3 py-20 text-center">
         <div>

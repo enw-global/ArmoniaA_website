@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   // TODO: Store data in a database per project
-  const target = new Date("2025-06-02T00:00:00");
+  const target = new Date("2025-08-02T00:00:00");
   const projectInfoRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
 
