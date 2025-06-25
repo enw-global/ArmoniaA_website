@@ -88,7 +88,7 @@ const Newsletter = () => {
         </a>
         <a
           target="_blank"
-          href="https://www.threads.com/european.new.wave/"
+          href="https://www.threads.com/@european.new.wave"
           className="text-white text-xs tracking-wide hover:underline"
         >
           THREADS
