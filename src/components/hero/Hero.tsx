@@ -62,6 +62,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
             autoPlay
             loop
             muted
+            playsInline
             controlsList="nodownload nofullscreen noremoteplayback"
             disablePictureInPicture
             className="max-w-full max-h-full object-contain"
@@ -71,26 +72,34 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
 
       <section className="relative flex flex-col gap-10 md:gap-20 lg:hidden flex-grow justify-center  items-center px-3 py-20 text-center">
         <div>
-          <video
-            ref={videoRef1}
-            src={video}
-            muted
-            loop
-            autoPlay
-            controlsList="nodownload nofullscreen noremoteplayback"
-            disablePictureInPicture
-            className="w-full max-w-lg object-cover rounded"
-          />
-          <video
-            ref={videoRef2}
-            src={video}
-            muted
-            loop
-            autoPlay
-            controlsList="nodownload nofullscreen noremoteplayback"
-            disablePictureInPicture
-            className="w-full max-w-lg object-cover rounded"
-          />
+          <a
+            target="_blank"
+            href="https://www.youtube.com/channel/UCpaFxqAl9XVtBVAAdfKx3hw"
+            className="hover:border-2 rounded-3xl transition duration-400 border-white/20 hover:border-white/50 w-full lg:w-[80%] max-w-5xl ease-in-out"
+          >
+            <video
+              ref={videoRef1}
+              src={video}
+              muted
+              loop
+              autoPlay
+              playsInline
+              controlsList="nodownload nofullscreen noremoteplayback"
+              disablePictureInPicture
+              className="w-full max-w-lg object-cover rounded"
+            />
+            <video
+              ref={videoRef2}
+              src={video}
+              muted
+              loop
+              autoPlay
+              playsInline
+              controlsList="nodownload nofullscreen noremoteplayback"
+              disablePictureInPicture
+              className="w-full max-w-lg object-cover rounded"
+            />
+          </a>
         </div>
         <div>
           <CountdownTimer targetDate={targetDate} />
