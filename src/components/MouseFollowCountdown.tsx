@@ -12,14 +12,30 @@ const MouseFollowCountdown: React.FC<CountdownProps> = ({
   offsetY = 10,
 }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
-  const [isTouch, setIsTouch] = useState<boolean>(false);
   const timerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
-  }, []);
+  // Only add mousemove for non-touch devices
+  const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  if (isTouchDevice) return;
 
-  if (isTouch) return null;
+  let frameId: number;
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!timerRef.current) return;
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = requestAnimationFrame(() => {
+      const x = e.clientX + offsetX;
+      const y = e.clientY + offsetY;
+      timerRef.current!.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    });
+  };
+
+  document.addEventListener("mousemove", handleMouseMove);
+  return () => {
+    document.removeEventListener("mousemove", handleMouseMove);
+    if (frameId) cancelAnimationFrame(frameId);
+  };
+}, [offsetX, offsetY]);
 
   useEffect(() => {
     const update = () => {
