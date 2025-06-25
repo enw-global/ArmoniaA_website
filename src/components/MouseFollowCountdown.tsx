@@ -12,7 +12,14 @@ const MouseFollowCountdown: React.FC<CountdownProps> = ({
   offsetY = 10,
 }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
+  const [isTouch, setIsTouch] = useState<boolean>(false);
   const timerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  if (isTouch) return null;
 
   useEffect(() => {
     const update = () => {
