@@ -6,36 +6,23 @@ interface CountdownProps {
   offsetY?: number;
 }
 
+function isTouchDevice() {
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0
+  );
+}
+
 const MouseFollowCountdown: React.FC<CountdownProps> = ({
   targetDate,
   offsetX = 10,
   offsetY = 10,
 }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
+  const touchDevice = isTouchDevice();
   const timerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-  // Only add mousemove for non-touch devices
-  const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  if (isTouchDevice) return;
-
-  let frameId: number;
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!timerRef.current) return;
-    if (frameId) cancelAnimationFrame(frameId);
-    frameId = requestAnimationFrame(() => {
-      const x = e.clientX + offsetX;
-      const y = e.clientY + offsetY;
-      timerRef.current!.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    });
-  };
-
-  document.addEventListener("mousemove", handleMouseMove);
-  return () => {
-    document.removeEventListener("mousemove", handleMouseMove);
-    if (frameId) cancelAnimationFrame(frameId);
-  };
-}, [offsetX, offsetY]);
+  if (touchDevice) return null;
 
   useEffect(() => {
     const update = () => {
@@ -78,7 +65,7 @@ const MouseFollowCountdown: React.FC<CountdownProps> = ({
       document.removeEventListener("mousemove", handleMouseMove);
       if (frameId) cancelAnimationFrame(frameId);
     };
-  }, [offsetX, offsetY]);
+  }, [offsetX, offsetY, isTouchDevice]);
 
   return (
     <div
