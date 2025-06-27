@@ -53,9 +53,9 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
       <a
         target="_blank"
         href="https://www.youtube.com/channel/UCpaFxqAl9XVtBVAAdfKx3hw"
-        className="hover:border-2 rounded-3xl transition duration-400 border-white/20 hover:border-white/50 w-full lg:w-[80%] max-w-5xl ease-in-out"
+        className="hover:border-2 rounded-3xl transition duration-400 border-white/30 hover:shadow-white hover:shadow-lg w-full lg:w-[80%] max-w-5xl ease-in-out"
       >
-        <section className="hidden lg:flex flex-grow justify-center py-10 items-center">
+        <section className="hidden lg:flex flex-grow justify-center py-6 items-center">
           <video
             ref={videoRef1}
             src={video}
