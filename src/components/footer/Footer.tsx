@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="text-gray-400 flex flex-col my-5 justify-center text-sm items-center leading-6 ">
+      <div className="text-[#686868] flex flex-col my-5 justify-center text-sm items-center leading-6 ">
         <p>Powered by European New Wave</p>
         <p>{copyright}</p>
       </div>

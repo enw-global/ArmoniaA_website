@@ -37,7 +37,7 @@ const Newsletter = () => {
 
   return (
     <div className="flex flex-col items-center space-y-10 w-sm">
-      <h2 className="text-xl font-medium text-white">Subscribe to our Mailing List</h2>
+      <h2 className="text-[24px] font-medium text-white">Subscribe to our Mailing List</h2>
 
       <form onSubmit={handleSubmit} className="w-[80%] lg:w-full">
         <div className="relative">
@@ -46,7 +46,7 @@ const Newsletter = () => {
             placeholder="Your email here"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-transparent text-white border border-gray-700 rounded-full pl-4 pr-10 py-2 w-full focus:outline-none focus:border-white"
+            className="bg-white/10 text-[#fff] placeholder:text-white font-light border border-[#f4f4f4] rounded-full pl-4 pr-10 py-2 w-full focus:outline-none focus:border-white"
           />
           <Button
             type="submit"
@@ -71,7 +71,7 @@ const Newsletter = () => {
         <a
           target="_blank"
           href="https://www.instagram.com/european.new.wave/"
-          className="text-white text-xs tracking-wide hover:underline"
+          className="text-white text-[16px] tracking-wide hover:underline"
           rel="noopener noreferrer"
           aria-label="Follow us on Instagram"
         >
@@ -80,7 +80,7 @@ const Newsletter = () => {
         <a
           target="_blank"
           href="https://www.tiktok.com/european.new.wave/"
-          className="text-white text-xs tracking-wide hover:underline"
+          className="text-white text-[16px] tracking-wide hover:underline"
           rel="noopener noreferrer"
           aria-label="Follow us on Instagram"
         >
@@ -89,7 +89,7 @@ const Newsletter = () => {
         <a
           target="_blank"
           href="https://www.threads.com/@european.new.wave"
-          className="text-white text-xs tracking-wide hover:underline"
+          className="text-white text-[16px] tracking-wide hover:underline"
         >
           THREADS
         </a>
