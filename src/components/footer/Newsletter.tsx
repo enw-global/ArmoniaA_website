@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { MdChevronRight } from "react-icons/md";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -37,7 +38,9 @@ const Newsletter = () => {
 
   return (
     <div className="flex flex-col items-center space-y-10 w-sm">
-      <h2 className="text-[24px] font-medium text-white">Subscribe to our Mailing List</h2>
+      <h2 className="text-[24px] font-medium text-white">
+        Subscribe to our Mailing List
+      </h2>
 
       <form onSubmit={handleSubmit} className="w-[80%] lg:w-full">
         <div className="relative">
@@ -46,7 +49,7 @@ const Newsletter = () => {
             placeholder="Your email here"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-white/10 text-[#fff] placeholder:text-white font-light border border-[#f4f4f4] rounded-full pl-4 pr-10 py-2 w-full focus:outline-none focus:border-white"
+            className="bg-white/10 text-[#fff] placeholder:text-white font-light border border-[#f4f4f4] rounded-full pl-4 pr-12 py-6 w-full focus:outline-none focus:border-white"
           />
           <Button
             type="submit"
@@ -60,7 +63,9 @@ const Newsletter = () => {
               {isSubmitting ? (
                 <div className="h-3 w-3 animate-spin rounded-full border-2 border-t-transparent border-white"></div>
               ) : (
-                <span className="text-white text-xs">→</span>
+                <span className="text-white text-xs">
+                  <MdChevronRight />
+                </span>
               )}
             </div>
           </Button>
