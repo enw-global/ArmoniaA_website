@@ -16,27 +16,77 @@ interface HeroProps {
 
 const VideoPlayer = memo(({ src, className }: { src: string; className: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     
-    // Play video when it's loaded and handle any errors silently
-    const handleCanPlay = () => {
-      video.play().catch((error) => {
-        console.log("Video play error:", error);
+
+    const playVideo = async () => {
+      try {
+        await video.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.log("Autoplay blocked, will try on user interaction:", error);
+        setIsPlaying(false);
+      }
+    };
+    
+
+    const handleCanPlayThrough = () => {
+      playVideo();
+    };
+    
+
+    const handleLoadedData = () => {
+      playVideo();
+    };
+    
+
+    const handleUserInteraction = () => {
+      if (!isPlaying) {
+        playVideo();
+      }
+    };
+    
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !isPlaying) {
+          playVideo();
+        }
       });
     };
     
-    video.addEventListener('canplaythrough', handleCanPlay);
+
+    video.addEventListener('canplaythrough', handleCanPlayThrough);
+    video.addEventListener('loadeddata', handleLoadedData);
     
-    // Force play attempt in case the video is already cached
-    video.play().catch(() => {});
+
+    document.addEventListener('touchstart', handleUserInteraction, { once: true });
+    document.addEventListener('click', handleUserInteraction, { once: true });
+    document.addEventListener('scroll', handleUserInteraction, { once: true });
     
+
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.1
+    });
+    observer.observe(video);
+    
+
+    playVideo();
+    
+
     return () => {
-      video.removeEventListener('canplaythrough', handleCanPlay);
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
+      video.removeEventListener('loadeddata', handleLoadedData);
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('scroll', handleUserInteraction);
+      observer.disconnect();
     };
-  }, []);
+  }, [isPlaying]);
   
   return (
     <video
@@ -47,9 +97,16 @@ const VideoPlayer = memo(({ src, className }: { src: string; className: string }
       playsInline
       preload="auto"
       autoPlay
+      controls={false}
       controlsList="nodownload nofullscreen noremoteplayback"
       disablePictureInPicture
+      disableRemotePlayback
+      webkit-playsinline="true"
       className={className}
+      style={{ 
+        WebkitTransform: 'translateZ(0)',
+        transform: 'translateZ(0)'
+      }}
     />
   );
 });
