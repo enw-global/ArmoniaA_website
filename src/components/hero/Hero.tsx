@@ -66,7 +66,6 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
     setError(null);
     
     const controller = new AbortController();
-    const signal = controller.signal;
     
     sanityClient
       .fetch<VideoAsset[]>(
