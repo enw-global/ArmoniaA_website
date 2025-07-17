@@ -51,10 +51,10 @@ VideoPlayer.displayName = 'VideoPlayer';
 
 const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
   const [video, setVideo] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
-    setIsLoading(true);
+
     const controller = new AbortController();
     
     sanityClient
@@ -64,9 +64,8 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
       .then((results) => {
         if (results.length > 0) setVideo(results[0].url);
       })
-      .catch((err) => console.error("Sanity failed to fetch data:", err))
-      .finally(() => setIsLoading(false));
-      
+      .catch((err) => console.error("Sanity failed to fetch data:", err));
+
     return () => {
       controller.abort();
     };
