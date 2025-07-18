@@ -42,7 +42,7 @@ const ProjectInfo = ({ onScrollDown }: { onScrollDown: () => void }) => {
 
       <div className="absolute bottom-0 flex justify-center py-6 flex-col items-center space-y-5">
         <p>Re-Engineering the human experience.</p>
-        <button className="cursor-pointer" onClick={onScrollDown}>
+        <button className="cursor-pointer" onClick={onScrollDown} aria-label="Scroll down">
           <FaChevronDown className="text-white text-3xl" />
         </button>
       </div>

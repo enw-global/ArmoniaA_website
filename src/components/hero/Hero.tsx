@@ -159,6 +159,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
         href="https://www.youtube.com/channel/UCpaFxqAl9XVtBVAAdfKx3hw"
         className="rounded-3xl transition duration-400 border-white/30 w-full lg:w-[80%] max-w-5xl ease-in-out"
         rel="noopener noreferrer"
+        aria-label="Watch on YouTube"
       >
         <section className="hidden lg:flex flex-grow justify-center py-6 items-center">
           <VideoPlayer 
@@ -175,6 +176,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
             href="https://www.youtube.com/channel/UCpaFxqAl9XVtBVAAdfKx3hw"
             className="hover:border-2 rounded-3xl transition duration-400 border-white/20 hover:border-white/50 w-full lg:w-[80%] max-w-5xl ease-in-out"
             rel="noopener noreferrer"
+            aria-label="Watch on YouTube"
           >
             <VideoPlayer
               src={video}
@@ -188,7 +190,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
       </section>
 
       <div className="absolute bottom-0 flex justify-center py-6">
-        <button className="cursor-pointer" onClick={onScrollDown}>
+        <button className="cursor-pointer" onClick={onScrollDown} aria-label="Scroll down">
           <FaChevronDown className="text-white text-3xl" />
         </button>
       </div>
