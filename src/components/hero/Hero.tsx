@@ -115,11 +115,9 @@ VideoPlayer.displayName = 'VideoPlayer';
 
 const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
   const [video, setVideo] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsLoading(true);
     setError(null);
     
     const controller = new AbortController();
@@ -138,9 +136,6 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
       .catch((err) => {
         console.error("Sanity failed to fetch data:", err);
         setError("Failed to load video");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
 
     return () => {
@@ -148,7 +143,6 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
     };
   }, []);
 
-  if (isLoading) return <p className="text-center text-white">Loading video…</p>;
   if (error) return <p className="text-center text-white">Error: {error}</p>;
   if (!video) return <p className="text-center text-white">No video available</p>;
 
