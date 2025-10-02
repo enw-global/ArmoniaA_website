@@ -157,12 +157,6 @@ const Navbar = () => {
                         src="/Logo.png"
                         alt="a_Mother Logo"
                         className="w-full object-contain"
-                        style={{ 
-                          maxWidth: "min(85vw, 380px)",
-                          maxHeight: "min(65vh, 500px)",
-                          width: "100%",
-                          height: "auto",
-                        }}
                       />
                     </DialogDescription>
                   </div>
