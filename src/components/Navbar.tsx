@@ -108,22 +108,30 @@ const Navbar = () => {
                     ref={dialogRef}
                     style={{
                       position: "fixed",
-                      padding: "20px 10px",
+                      width: "100%",
+                      height: "100dvh",
                       color: "white",
                       zIndex: 50,
                       background: "#E63D3A",
                       boxShadow: "0 0 15px rgba(0,0,0,0.3)",
+                      display: "flex",
+                      flexDirection: "column",
+                      paddingTop: "max(env(safe-area-inset-top, 0px), 16px)",
+                      paddingLeft: "max(env(safe-area-inset-left, 0px), 16px)",
+                      paddingRight: "max(env(safe-area-inset-right, 0px), 16px)",
+                      overflow: "hidden",
                     }}
-                    className="w-screen h-screen"
+                    className="w-full"
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    <DialogHeader className="flex flex-row justify-between w-[92.5vw] items-center">
-                      <DialogTitle className="mx-3 text-start text-sm">
+                    <DialogHeader className="flex flex-row justify-between items-start mb-4 flex-shrink-0">
+                      <DialogTitle className="text-start text-sm leading-tight flex-1 pr-2 items-center pt-2">
                         5% of all proceeds go to a_Mother
                       </DialogTitle>
                         <button
                         onClick={() => setIsOpen(false)}
                         aria-label="Close"
-                        className=" hover:bg-white/10 rounded transition"
+                        className="hover:bg-white/10 rounded transition p-1 flex-shrink-0"
                         style={{ background: "transparent", border: "none", cursor: "pointer" }}
                         >
                         <svg
@@ -138,11 +146,23 @@ const Navbar = () => {
                         </svg>
                         </button>
                     </DialogHeader>
-                    <DialogDescription className="relative h-full">
+                    <DialogDescription 
+                      className="flex-1 flex flex-col justify-end items-center"
+                      style={{
+                        minHeight: 0,
+                        paddingBottom: "max(calc(env(safe-area-inset-bottom, 0px) + 24px), 24px)",
+                      }}
+                    >
                       <img
                         src="/Logo.png"
-                        alt=""
-                        className="absolute bottom-0 w-[95%] mb-5 left-1/2 transform -translate-x-1/2"
+                        alt="a_Mother Logo"
+                        className="w-full object-contain"
+                        style={{ 
+                          maxWidth: "min(85vw, 380px)",
+                          maxHeight: "min(65vh, 500px)",
+                          width: "100%",
+                          height: "auto",
+                        }}
                       />
                     </DialogDescription>
                   </div>
@@ -170,7 +190,7 @@ const Navbar = () => {
                     <DialogDescription className="relative h-full">
                       <img
                         src="/Logo.png"
-                        alt=""
+                        alt="a_Mother Logo"
                         className="absolute bottom-0 w-[95%] mb-5 left-1/2 transform -translate-x-1/2"
                       />
                     </DialogDescription>
