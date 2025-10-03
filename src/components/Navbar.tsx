@@ -7,9 +7,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../components/ui/dialog";
+import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
+import { getCopyrightYear } from "@/utils/utils";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<{ x: number; y: number }>({
     x: 100,
     y: 100,
@@ -22,7 +25,7 @@ const Navbar = () => {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isModalOpen) return;
 
     let animationFrame: number;
 
@@ -52,12 +55,12 @@ const Navbar = () => {
     };
     animationFrame = requestAnimationFrame(move);
     return () => cancelAnimationFrame(animationFrame);
-  }, [isOpen, position, velocity]);
+  }, [isModalOpen, position, velocity]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setIsOpen(false);
+        setIsModalOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -65,7 +68,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isModalOpen]);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -78,30 +81,25 @@ const Navbar = () => {
 
   return (
     <header className=" bg-transparent fixed h-16 flex flex-col justify-center w-full z-50">
-      <nav className=" w-full">
-        <div className=" align-element flex flex-row justify-between items-center">
-          <div className="bg-black"></div>
-          <div>
-            <a href="/" className="flex justify-center">
-              <img
-                src="/armonia_a_logo.png"
-                alt="Armonia A logo"
-                className="w-40 lg:w-80  transition duration-200 "
-              />
-            </a>
-          </div>
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <nav className=" w-full" aria-label="Main navigation">
+        <div className="px-5 flex flex-row justify-between items-center">
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-              <img
-                src="/a_Mother_Spark_button.png"
-                alt="a Mother Modal"
-                className=" a-mother-spark-button cursor-pointer"
-              />
+              <button
+                className="p-0 border-0 bg-transparent a-mother-spark-button cursor-pointer"
+                aria-label="Open a_Mother information"
+              >
+                <img
+                  src="/a_Mother_Spark_button.png"
+                  alt="a Mother"
+                />
+              </button>
             </DialogTrigger>
-            {isOpen && (
+            {isModalOpen && (
               <div
                 className="fixed inset-0 bg-black/50 z-50"
-                onClick={() => setIsOpen(false)}
+                onClick={() => setIsModalOpen(false)}
+                role="presentation"
               >
                 {isMobile ? (
                   <div
@@ -118,7 +116,8 @@ const Navbar = () => {
                       flexDirection: "column",
                       paddingTop: "max(env(safe-area-inset-top, 0px), 16px)",
                       paddingLeft: "max(env(safe-area-inset-left, 0px), 16px)",
-                      paddingRight: "max(env(safe-area-inset-right, 0px), 16px)",
+                      paddingRight:
+                        "max(env(safe-area-inset-right, 0px), 16px)",
                       overflow: "hidden",
                     }}
                     className="w-full"
@@ -128,35 +127,57 @@ const Navbar = () => {
                       <DialogTitle className="text-start text-sm leading-tight flex-1 pr-2 items-center pt-2">
                         5% of all proceeds go to a_Mother
                       </DialogTitle>
-                        <button
-                        onClick={() => setIsOpen(false)}
-                        aria-label="Close"
+                      <button
+                        onClick={() => setIsModalOpen(false)}
+                        aria-label="Close a_Mother modal"
                         className="hover:bg-white/10 rounded transition p-1 flex-shrink-0"
-                        style={{ background: "transparent", border: "none", cursor: "pointer" }}
-                        >
+                        style={{
+                          background: "transparent",
+                          border: "none",
+                          cursor: "pointer",
+                        }}
+                      >
                         <svg
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
+                          aria-hidden="true"
                         >
-                          <line x1="6" y1="6" x2="18" y2="18" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                          <line x1="6" y1="18" x2="18" y2="6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                          <line
+                            x1="6"
+                            y1="6"
+                            x2="18"
+                            y2="18"
+                            stroke="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                          <line
+                            x1="6"
+                            y1="18"
+                            x2="18"
+                            y2="6"
+                            stroke="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
-                        </button>
+                      </button>
                     </DialogHeader>
-                    <DialogDescription 
+                    <DialogDescription
                       className="flex-1 flex flex-col justify-end items-center"
                       style={{
                         minHeight: 0,
-                        paddingBottom: "max(calc(env(safe-area-inset-bottom, 0px) + 24px), 24px)",
+                        paddingBottom:
+                          "max(calc(env(safe-area-inset-bottom, 0px) + 24px), 24px)",
                       }}
                     >
                       <img
-                        src="/Logo.png"
+                        src="/a_Mother.svg"
                         alt="a_Mother Logo"
-                        className="w-full object-contain"
+                        className="invert w-full object-contain"
                       />
                     </DialogDescription>
                   </div>
@@ -183,9 +204,9 @@ const Navbar = () => {
                     </DialogHeader>
                     <DialogDescription className="relative h-full">
                       <img
-                        src="/Logo.png"
+                        src="/a_Mother.svg"
                         alt="a_Mother Logo"
-                        className="absolute bottom-0 w-[95%] mb-5 left-1/2 transform -translate-x-1/2"
+                        className="invert absolute bottom-0 w-[95%] mb-5 left-1/2 transform -translate-x-1/2"
                       />
                     </DialogDescription>
                   </div>
@@ -193,6 +214,188 @@ const Navbar = () => {
               </div>
             )}
           </Dialog>
+
+          <div>
+            <a href="/" className="flex justify-center" aria-label="Armonia A home">
+              <img
+                src="/armonia_a_logo.png"
+                alt="Armonia A"
+                className="w-40 lg:w-80  transition duration-200 "
+              />
+            </a>
+          </div>
+          <div className="cursor-pointer">
+            <Dialog open={isNavMenuOpen} onOpenChange={setIsNavMenuOpen}>
+              <DialogTrigger asChild>
+                <button
+                  className="p-0 border-0 bg-transparent cursor-pointer"
+                  aria-label="Open navigation menu"
+                >
+                  <Hamburger size={24} aria-hidden="true" />
+                </button>
+              </DialogTrigger>
+              {isNavMenuOpen && (
+                <>
+                  <div className="fixed inset-0 bg-black/100 z-50 w-full h-full flex flex-col overflow-y-auto lg:grid lg:grid-cols-2 lg:grid-rows-1 lg:overflow-hidden xl:grid-cols-[0.75fr_2fr]">
+                    <aside
+                      id="about-armonia_a"
+                      className="bg-black min-h-[80vh] lg:min-h-0 lg:h-full order-2 lg:order-1"
+                      aria-label="About Armonia A"
+                    >
+                      <div className="h-full flex flex-col justify-between">
+                        <div
+                          id="about-armonia_a-content"
+                          className="py-4 px-5 space-y-7 text-armonia-sand"
+                        >
+                          <h2 className="text-armonia-sand font-bold text-2xl">
+                            About Us
+                          </h2>
+                          <img
+                            src="/aa_logo.svg"
+                            alt="Armonia A aa logo"
+                            className="w-24 h-12 sm:w-36 sm:h-auto md:w-40 md:h-20 transition duration-200"
+                          />
+                          <p>
+                            <strong className="font-bold">Armonia A</strong> is the
+                            future advance studio where ideas become
+                            expressions, offering new forms of meaning and
+                            possibility.
+                          </p>
+                          <img
+                            src="/Insignia.svg"
+                            alt="Insignia"
+                            className="w-full transition duration-200"
+                          />
+                          <p className="mb-5">
+                            European New Wave (ENW) is a cultural movement and
+                            creative ecosystem, building one of the most vital
+                            communities of our generation.
+                          </p>
+                        </div>
+                        <footer
+                          className="py-4 px-5 space-y-7 text-armonia-sand"
+                        >
+                          <div className="hidden lg:flex flex-col">
+                            <small>Powered by European New Wave</small>
+                            <small>&copy; {getCopyrightYear()} armonia-a.com</small>
+                          </div>
+                        </footer>
+                        <footer className="flex w-full lg:hidden border-t-2 border-stone-500">
+                          <div className=" flex-1 flex items-center justify-start gap-2 px-5">
+                            <div>
+                              <img
+                                src="/Armonia.svg"
+                                alt="Armonia A logo"
+                                className="w-24 h-12 md:w-32 md:h-15 transition duration-200  flex-1"
+                              />
+                            </div>
+                            <div className=" flex-1 flex items-center justify-end  gap-2">
+                              <img
+                                src="/A.svg"
+                                alt="Armonia A logo"
+                                className=" h-3.5 md:h-5 transition duration-200 "
+                              />
+                            </div>
+                          </div>
+                          <div className="flex-1 justify-center md:justify-start items-center flex px-5 border-l-2 border-stone-500">
+                            <p className="text-sm md:text-md font-light text-armonia-sand">
+                              &copy; {getCopyrightYear()} armonia-a.com
+                            </p>
+                          </div>
+                        </footer>
+                      </div>
+                    </aside>
+                    <div className="flex flex-col min-h-[80vh] lg:min-h-0 order-1 lg:order-2">
+                      <section
+                        id="nav-menu"
+                        className="p-4 px-5 bg-armonia-sand h-full flex flex-col flex-5/6 items-end"
+                        aria-label="Main menu"
+                      >
+                        <div className="flex flex-row justify-between">
+                          <button
+                            onClick={() => setIsNavMenuOpen(false)}
+                            aria-label="Close navigation menu"
+                            className="hover:bg-black rounded transition p-1 flex-shrink-0"
+                            style={{
+                              background: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="black"
+                              xmlns="http://www.w3.org/2000/svg"
+                              aria-hidden="true"
+                            >
+                              <line
+                                x1="6"
+                                y1="6"
+                                x2="18"
+                                y2="18"
+                                stroke="black"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                              />
+                              <line
+                                x1="6"
+                                y1="18"
+                                x2="18"
+                                y2="6"
+                                stroke="black"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                        {/* Navbar Links */}
+                        <nav className="flex-1" aria-label="Primary navigation">
+                          <ul className="flex flex-col gap-3 text-black items-end uppercase text-5xl lg:text-7xl">
+                            <li>
+                              <a
+                                href="/"
+                                className=" font-bold hover:text-gray-800 transition-colors"
+                              >
+                                Home
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="/archive"
+                                className=" font-bold hover:text-gray-800 transition-colors"
+                              >
+                                Archive
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </section>
+                      <section className="hidden lg:flex bg-black h-full w-full flex-1/8 justify-end items-end px-5 border-l-1 border-armonia-sand">
+                        <div className=" h-full flex items-end justify-end">
+                          <img
+                            src="/Armonia.svg"
+                            alt="Armonia A logo"
+                            className="w-24 h-12 md:w-32 md:h-15 lg:w-52 transition duration-200 flex-1 "
+                          />
+                        </div>
+                        <div className="h-full flex-1 flex items-end justify-end py-4">
+                          <img
+                            src="/A.svg"
+                            alt="Armonia A logo"
+                            className=" h-3.5 md:h-5 lg:h-8 transition duration-200"
+                          />
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </>
+              )}
+            </Dialog>
+          </div>
+          {/* <div className="bg-black"></div> */}
         </div>
       </nav>
     </header>
