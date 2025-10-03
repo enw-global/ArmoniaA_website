@@ -16,7 +16,7 @@ body {
 
 @layer components {
   .align-element {
-    @apply mx-auto max-w-[95%] px-2;
+    @apply mx-auto max-w-[97.5%];
   }
 
   .a-mother-spark-button {
@@ -62,6 +62,7 @@ body {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-armonia-sand: #d4cfc1;
 }
 
 :root {
