@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Dialog,
@@ -80,7 +81,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className=" bg-transparent fixed h-16 flex flex-col justify-center w-full z-50">
+    <header className="bg-gradient-to-b from-black to-transparent fixed h-16 flex flex-col justify-center w-full z-50">
       <nav className=" w-full" aria-label="Main navigation">
         <div className="px-5 flex flex-row justify-between items-center">
           <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -216,13 +217,13 @@ const Navbar = () => {
           </Dialog>
 
           <div>
-            <a href="/" className="flex justify-center" aria-label="Armonia A home">
+            <Link to="/" className="flex justify-center" aria-label="Armonia A home">
               <img
                 src="/armonia_a_logo.png"
                 alt="Armonia A"
                 className="w-40 lg:w-80  transition duration-200 "
               />
-            </a>
+            </Link>
           </div>
           <div className="cursor-pointer">
             <Dialog open={isNavMenuOpen} onOpenChange={setIsNavMenuOpen}>
@@ -355,20 +356,22 @@ const Navbar = () => {
                         <nav className="flex-1" aria-label="Primary navigation">
                           <ul className="flex flex-col gap-3 text-black items-end uppercase text-5xl lg:text-7xl">
                             <li>
-                              <a
-                                href="/"
+                              <Link
+                                to="/"
                                 className=" font-bold hover:text-gray-800 transition-colors"
+                                onClick={() => setIsNavMenuOpen(false)}
                               >
                                 Home
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href="/archive"
+                              <Link
+                                to="/archive"
                                 className=" font-bold hover:text-gray-800 transition-colors"
+                                onClick={() => setIsNavMenuOpen(false)}
                               >
                                 Archive
-                              </a>
+                              </Link>
                             </li>
                           </ul>
                         </nav>
