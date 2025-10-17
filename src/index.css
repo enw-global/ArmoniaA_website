@@ -26,6 +26,20 @@ body {
   }
 }
 
+@layer utilities {
+  .carousel-peek-mobile {
+    flex: 0 0 calc(100% - 25%);
+  }
+  
+  .carousel-peek-md {
+    flex: 0 0 calc(50% - 12.5%);
+  }
+  
+  .carousel-peek-lg {
+    flex: 0 0 calc(33.333% - 8.33%);
+  }
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
