@@ -14,37 +14,56 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import Credits from "./Credits";
+import { sanityClient } from "@/lib/sanity";
+import { splitDescription } from "@/utils/utils";
 import Footer from "../footer/Footer";
-import { CelebratingRosemary, Temp1, Temp2, Temp3 } from "../images";
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
+import { useToggleDescLayout } from "@/utils/toggleMobileDesc";
+
+interface ArchiveProps {
+  title: string;
+  description: string;
+  peopleInvolved: string[];
+  archiveDate: number;
+  projectType: string;
+  assetFiles: { url: string; type: string }[];
+}
 
 const Archive = () => {
-  // Array of available images
-  const archiveImages = [Temp1, Temp2, Temp3];
+  const [error, setError] = useState<string | null>(null);
+  const [archivedProjects, setArchivedProjects] = useState<ArchiveProps[]>([]);
+  const { activeItem: showMobileDescription, toggle: toggleMobileDescription } = useToggleDescLayout();
 
-  // State for mobile description accordion
-  const [showMobileDescription, setShowMobileDescription] = useState<
-    string | null
-  >(null);
+  useEffect(() => {
+    setError(null);
 
-  const peopleInvolved = [
-    "Christian Noye",
-    "Mohammed Rahman",
-    "Din Trota",
-    "Zahra Nawaz",
-    "Joshua Capito",
-    "Sahif Rahman",
-    "Nick Charambira",
-    "Maxwell Nuerty",
-    "Jeremicko Onrubia",
-  ];
+    sanityClient
+      .fetch<ArchiveProps[]>(
+        `*[_type == "archiveAssets"]{
+        title,
+        description,
+        peopleInvolved,
+        archiveDate,
+        projectType,
+        "assetFiles": assetFiles[]{
+          "url": asset->url
+        }
+      }`
+      )
+      .then((data) => {
+        if (data.length > 0) {
+          setArchivedProjects(data);
+        }
+        setArchivedProjects(data);
+      })
+      .catch((err) => {
+        console.error(err)
+        setError("Failed to load archive assets. Please try again later.");
+      });
+  }, []);
 
-  // Helper function to toggle mobile description
-  const toggleMobileDescription = (itemId: string) => {
-    setShowMobileDescription(showMobileDescription === itemId ? null : itemId);
-  };
 
-  // Reusable mobile description toggle component
   const MobileDescriptionToggle = ({
     itemId,
     projectType,
@@ -124,399 +143,149 @@ const Archive = () => {
           </div>
         </section>
 
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+
+        {!error && archivedProjects.length === 0 && (
+          <div className="text-center text-armonia-sand mb-4">
+            No archived projects available at the moment.
+          </div>
+        )}
+
         <section>
           <Accordion
             type="single"
             collapsible
             className="w-full text-armonia-sand"
-            defaultValue="item-1"
+            defaultValue={archivedProjects.length > 0 ? `item-0` : undefined}
           >
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="hover:no-underline [&>svg]:hidden">
-                {/* Mobile Layout */}
-                <div className="flex md:hidden justify-between w-full text-left">
-                  <div className="hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="hover:underline">
-                    <span>2024</span>
-                  </div>
-                </div>
+            {archivedProjects.map((project, index) => {
+              const itemId = `item-${index}`;
+              const projectYear = project.archiveDate;
+              const { column1, column2 } = splitDescription(
+                project.description
+              );
 
-                {/* Desktop Layout */}
-                <div className="hidden md:flex w-full text-left text-[18px]">
-                  <div className="flex-1/2 hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="flex flex-1/2 lg:flex-1/6">
-                    <div className="flex-1 hover:underline">
-                      <span>March 2024</span>
+              return (
+                <AccordionItem key={itemId} value={itemId}>
+                  <AccordionTrigger className="hover:no-underline [&>svg]:hidden">
+                    {/* Mobile Layout */}
+                    <div className="flex md:hidden justify-between w-full text-left">
+                      <div className="hover:underline">
+                        <span>{project.title}</span>
+                      </div>
+                      <div className="hover:underline">
+                        <span>{projectYear}</span>
+                      </div>
                     </div>
-                    <div className="flex-1/12 hover:underline">
-                      <span>Web Design</span>
+
+                    {/* Desktop Layout */}
+                    <div className="hidden md:flex w-full text-left text-[18px]">
+                      <div className="flex-1/2 hover:underline">
+                        <span>{project.title}</span>
+                      </div>
+                      <div className="flex flex-1/2 lg:flex-1/6">
+                        <div className="flex-1 hover:underline">
+                          <span>{projectYear}</span>
+                        </div>
+                        <div className="flex-1/12 hover:underline">
+                          <span>{project.projectType}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                <div className="relative w-full">
-                  <Carousel className="w-full">
-                    <CarouselContent className="flex items-start">
-                      <CarouselItem className="flex-none mr-4">
-                        <Card className="w-auto p-0 border-0">
-                          <CardContent className="p-0">
-                            <img
-                              src={CelebratingRosemary}
-                              alt="Celebrating Rosemary"
-                              className="w-auto object-contain max-h-[80vh] max-w-full"
-                            />
-                          </CardContent>
-                        </Card>
-                      </CarouselItem>
-                    </CarouselContent>
-                    <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
-                    <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
-                  </Carousel>
-                </div>
-                {/* Mobile: Show/Hide Title */}
-                <div>
-                  {/* Mobile: Show/Hide Description */}
-                  <MobileDescriptionToggle itemId="item-1" projectType="Community Outreach">
-                    <p>
-                      Our flagship product combines cutting-edge technology with
-                      sleek design. Built with premium materials, it offers
-                      unparalleled performance and reliability.
-                    </p>
-                    <p>
-                      Key features include advanced processing capabilities, and
-                      an intuitive user interface designed for both beginners
-                      and experts.
-                    </p>
-                  </MobileDescriptionToggle>
-                </div>
-
-                {/* Desktop: Always visible description */}
-                <div className="hidden md:flex flex-col gap-4">
-                  <p>
-                    Our flagship product combines cutting-edge technology with
-                    sleek design. Built with premium materials, it offers
-                    unparalleled performance and reliability.
-                  </p>
-                  <p>
-                    Key features include advanced processing capabilities, and
-                    an intuitive user interface designed for both beginners and
-                    experts.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            {/* Item 2 */}
-            <AccordionItem value="item-2">
-              <AccordionTrigger className="hover:no-underline [&>svg]:hidden">
-                {/* Mobile Layout */}
-                <div className="flex md:hidden justify-between w-full text-left">
-                  <div className="hover:underline">
-                    <span>Momentous</span>
-                  </div>
-                  <div className="hover:underline">
-                    <span>2024</span>
-                  </div>
-                </div>
-
-                {/* Desktop Layout */}
-                <div className="hidden md:flex w-full text-left text-[18px]">
-                  <div className="flex-1/2 hover:underline">
-                    <span>Momentous</span>
-                  </div>
-                  <div className="flex flex-1/2 lg:flex-1/6">
-                    <div className="flex-1 hover:underline">
-                      <span>March 2024</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="flex flex-col gap-4 text-balance">
+                    {/* Render Assets */}
+                    <div className="relative w-full">
+                      {project.assetFiles.length === 1 ? (
+                        // Single image
+                        <img
+                          src={project.assetFiles[0].url}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        // Multiple images - Carousel
+                        <Carousel className="w-full">
+                          <CarouselContent className="flex items-start">
+                            {project.assetFiles.map((asset, assetIndex) => (
+                              <CarouselItem
+                                key={assetIndex}
+                                className="flex-none mr-4"
+                              >
+                                <Card className="w-auto p-0 border-0">
+                                  <CardContent className="p-0">
+                                    <img
+                                      src={asset.url}
+                                      alt={`${project.title} - Asset ${assetIndex + 1}`}
+                                      className="w-auto object-contain max-h-[80vh] max-w-full"
+                                      style={{
+                                        height: "auto",
+                                        display: "block",
+                                      }}
+                                    />
+                                  </CardContent>
+                                </Card>
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                          {project.assetFiles.length > 1 && (
+                            <>
+                              <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
+                              <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+                            </>
+                          )}
+                        </Carousel>
+                      )}
                     </div>
-                    <div className="flex-1/12 hover:underline">
-                      <span>Web Design</span>
+
+                    {/* Mobile: Show/Hide Description */}
+                    <MobileDescriptionToggle
+                      itemId={itemId}
+                      projectType={project.projectType}
+                    >
+                      {column2 ? (
+                        <div className="grid grid-cols-1 gap-4">
+                          <p>{column1}</p>
+                          <p>{column2}</p>
+                        </div>
+                      ) : (
+                        <p>{column1}</p>
+                      )}
+                      {project.peopleInvolved &&
+                        project.peopleInvolved.length > 0 && (
+                          <div
+                            id="credits-section"
+                            className="flex flex-col gap-2"
+                          >
+                            <Credits peopleInvolved={project.peopleInvolved} />
+                          </div>
+                        )}
+                    </MobileDescriptionToggle>
+
+                    {/* Desktop: Always visible description */}
+                    <div className="hidden md:flex flex-col gap-4">
+                      {column2 ? (
+                        <div className="grid grid-cols-2 gap-7">
+                          <p>{column1}</p>
+                          <p>{column2}</p>
+                        </div>
+                      ) : (
+                        <p>{column1}</p>
+                      )}
+                      {project.peopleInvolved &&
+                        project.peopleInvolved.length > 0 && (
+                          <div
+                            id="credits-section"
+                            className="flex flex-row gap-2"
+                          >
+                            <Credits peopleInvolved={project.peopleInvolved} />
+                          </div>
+                        )}
                     </div>
-                  </div>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                <div className="relative w-full">
-                  <Carousel className="w-full">
-                    <CarouselContent className="flex items-start">
-                      {archiveImages.map((imageSrc, index) => (
-                        <CarouselItem key={index} className="flex-none mr-4">
-                          <Card className="w-auto p-0 border-0">
-                            <CardContent className="p-0">
-                              <img
-                                src={imageSrc}
-                                alt={`Archive project ${index + 1}`}
-                                className="w-auto object-contain max-h-[80vh] max-w-full"
-                                style={{
-                                  height: "auto",
-                                  display: "block",
-                                }}
-                              />
-                            </CardContent>
-                          </Card>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
-                    <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
-                  </Carousel>
-                </div>
-
-                {/* Mobile: Show/Hide Description */}
-                <MobileDescriptionToggle itemId="item-2" projectType="Web Design">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eius doloribus earum eos praesentium et! Neque, laboriosam
-                    voluptatibus. Repellendus alias voluptatibus explicabo,
-                    deserunt eius eos sunt odio expedita, dolor nihil quibusdam
-                    maxime vitae cumque ipsum aperiam iste excepturi ab itaque
-                    quisquam! Quidem quis cum saepe! Libero ipsum, possimus illo
-                    sit asperiores, voluptas id inventore maiores quasi,
-                    consequatur alias explicabo exercitationem veniam neque
-                    voluptate iusto quas rerum beatae ab numquam in ea tempora
-                    magni?
-                  </p>
-                  <div id="credits-section" className="flex flex-col gap-2">
-                    <h3 className="font-bold text-lg">Credits:</h3>
-                    <ul className="flex flex-row flex-wrap gap-2">
-                      {peopleInvolved.map((person, index) => (
-                        <li
-                          key={index}
-                          className="bg-neutral-700 px-3 py-1 rounded-full text-sm"
-                        >
-                          {person}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </MobileDescriptionToggle>
-
-                {/* Desktop: Always visible description */}
-                <div className="hidden md:flex w-full flex-row gap-7 justify-between">
-                  <p className="flex-1/2 ">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eius doloribus earum eos praesentium et! Neque, laboriosam
-                    voluptatibus. Repellendus alias voluptatibus explicabo,
-                    deserunt eius eos sunt odio expedita, dolor nihil quibusdam
-                    maxime vitae cumque ipsum aperiam iste excepturi ab itaque
-                    quisquam! Quidem quis cum saepe! Libero ipsum, possimus illo
-                    sit asperiores, voluptas id inventore maiores quasi,
-                    consequatur alias explicabo exercitationem veniam neque
-                    voluptate iusto quas rerum beatae ab numquam in ea tempora
-                    magni? Dolorum, quidem doloribus temporibus porro incidunt
-                    deleniti corrupti, omnis explicabo laudantium nam sit nulla?
-                    Quidem dolore officiis reiciendis. Sit, omnis ad nulla minus
-                    eos aliquid voluptatibus quisquam pariatur?
-                  </p>
-                  <p className="flex-1/2 ">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Sint odio voluptates eaque harum asperiores, excepturi, ut
-                    ullam recusandae nostrum sequi eos minus? Nesciunt
-                    dignissimos facilis nisi fuga? Exercitationem harum nihil
-                    cum praesentium eligendi dignissimos voluptatibus beatae
-                    ratione, ea id quasi magnam mollitia dolore atque sequi
-                    reprehenderit qui obcaecati autem quos veritatis explicabo
-                    error. Illo, hic dolorem temporibus officiis animi error,
-                    reprehenderit nobis dignissimos dolor perspiciatis, itaque
-                    repellat magnam! Ex ipsam similique culpa rerum in
-                    voluptatem blanditiis alias! Autem voluptatum unde, ratione
-                    quam asperiores eaque voluptates eos magnam recusandae
-                    praesentium error nisi perferendis ipsum nostrum harum,
-                    corrupti obcaecati aspernatur possimus minima!
-                  </p>
-                </div>
-                <div
-                  id="credits-section"
-                  className="hidden md:flex flex-row gap-2"
-                >
-                  <h3 className="font-bold text-lg">Credits:</h3>
-                  <ul className="flex flex-row flex-wrap gap-2">
-                    {peopleInvolved.map((person, index) => (
-                      <li
-                        key={index}
-                        className="bg-neutral-700 px-3 py-1 rounded-full"
-                      >
-                        {person}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-              <AccordionTrigger className="hover:no-underline [&>svg]:hidden">
-                {/* Mobile Layout */}
-                <div className="flex md:hidden justify-between w-full text-left">
-                  <div className="hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="hover:underline">
-                    <span>2024</span>
-                  </div>
-                </div>
-
-                {/* Desktop Layout */}
-                <div className="hidden md:flex w-full text-left text-[18px]">
-                  <div className="flex-1/2 hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="flex flex-1/2 lg:flex-1/6">
-                    <div className="flex-1 hover:underline">
-                      <span>March 2024</span>
-                    </div>
-                    <div className="flex-1/12 hover:underline">
-                      <span>Web Design</span>
-                    </div>
-                  </div>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                {/* Mobile: Show/Hide Description */}
-                <MobileDescriptionToggle itemId="item-3" projectType="Web Design">
-                  <p>
-                    Our flagship product combines cutting-edge technology with
-                    sleek design. Built with premium materials, it offers
-                    unparalleled performance and reliability.
-                  </p>
-                  <p>
-                    Key features include advanced processing capabilities, and
-                    an intuitive user interface designed for both beginners and
-                    experts.
-                  </p>
-                </MobileDescriptionToggle>
-
-                {/* Desktop: Always visible description */}
-                <div className="hidden md:flex flex-col gap-4">
-                  <p>
-                    Our flagship product combines cutting-edge technology with
-                    sleek design. Built with premium materials, it offers
-                    unparalleled performance and reliability.
-                  </p>
-                  <p>
-                    Key features include advanced processing capabilities, and
-                    an intuitive user interface designed for both beginners and
-                    experts.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-4">
-              <AccordionTrigger className="hover:no-underline [&>svg]:hidden">
-                {/* Mobile Layout */}
-                <div className="flex md:hidden justify-between w-full text-left">
-                  <div className="hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="hover:underline">
-                    <span>2024</span>
-                  </div>
-                </div>
-
-                {/* Desktop Layout */}
-                <div className="hidden md:flex w-full text-left text-[18px]">
-                  <div className="flex-1/2 hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="flex flex-1/2 lg:flex-1/6">
-                    <div className="flex-1 hover:underline">
-                      <span>March 2024</span>
-                    </div>
-                    <div className="flex-1/12 hover:underline">
-                      <span>Web Design</span>
-                    </div>
-                  </div>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                {/* Mobile: Show/Hide Description */}
-                <MobileDescriptionToggle itemId="item-4" projectType="Web Design">
-                  <p>
-                    Our flagship product combines cutting-edge technology with
-                    sleek design. Built with premium materials, it offers
-                    unparalleled performance and reliability.
-                  </p>
-                  <p>
-                    Key features include advanced processing capabilities, and
-                    an intuitive user interface designed for both beginners and
-                    experts.
-                  </p>
-                </MobileDescriptionToggle>
-
-                {/* Desktop: Always visible description */}
-                <div className="hidden md:flex flex-col gap-4">
-                  <p>
-                    Our flagship product combines cutting-edge technology with
-                    sleek design. Built with premium materials, it offers
-                    unparalleled performance and reliability.
-                  </p>
-                  <p>
-                    Key features include advanced processing capabilities, and
-                    an intuitive user interface designed for both beginners and
-                    experts.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-5">
-              <AccordionTrigger className="hover:no-underline [&>svg]:hidden">
-                {/* Mobile Layout */}
-                <div className="flex md:hidden justify-between w-full text-left">
-                  <div className="hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="hover:underline">
-                    <span>2024</span>
-                  </div>
-                </div>
-
-                {/* Desktop Layout */}
-                <div className="hidden md:flex w-full text-left text-[18px]">
-                  <div className="flex-1/2 hover:underline">
-                    <span>Sample Project Title</span>
-                  </div>
-                  <div className="flex flex-1/2 lg:flex-1/6">
-                    <div className="flex-1 hover:underline">
-                      <span>March 2024</span>
-                    </div>
-                    <div className="flex-1/12 hover:underline">
-                      <span>Web Design</span>
-                    </div>
-                  </div>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                {/* Mobile: Show/Hide Description */}
-                <MobileDescriptionToggle itemId="item-5" projectType="Web Design">
-                  <p>
-                    Our flagship product combines cutting-edge technology with
-                    sleek design. Built with premium materials, it offers
-                    unparalleled performance and reliability.
-                  </p>
-                  <p>
-                    Key features include advanced processing capabilities, and
-                    an intuitive user interface designed for both beginners and
-                    experts.
-                  </p>
-                </MobileDescriptionToggle>
-
-                {/* Desktop: Always visible description */}
-                <div className="hidden md:flex flex-col gap-4">
-                  <p>
-                    Our flagship product combines cutting-edge technology with
-                    sleek design. Built with premium materials, it offers
-                    unparalleled performance and reliability.
-                  </p>
-                  <p>
-                    Key features include advanced processing capabilities, and
-                    an intuitive user interface designed for both beginners and
-                    experts.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
           </Accordion>
         </section>
         <section>
