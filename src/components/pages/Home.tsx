@@ -9,17 +9,11 @@ import Loading from "../Loading";
 const Hero = lazy(() => import("../hero/Hero"));
 
 const Home = () => {
-  // TODO: Store data in a database per project
   const target = new Date("2025-09-02T00:00:00");
   const projectInfoRef = useRef<HTMLDivElement>(null);
-  const footerRef = useRef<HTMLDivElement>(null);
 
   const scrollToProjectInfo = () => {
     projectInfoRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const scrollToFooter = () => {
-    footerRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -30,9 +24,9 @@ const Home = () => {
         <Hero targetDate={target} onScrollDown={scrollToProjectInfo} />
       </Suspense>
       <div ref={projectInfoRef}>
-        <ProjectInfo onScrollDown={scrollToFooter} />
+        <ProjectInfo/>
       </div>
-      <div ref={footerRef}>
+      <div>
         <Footer />
       </div>
     </>

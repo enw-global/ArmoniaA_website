@@ -91,7 +91,7 @@ const Navbar = () => {
                 aria-label="Open a_Mother information"
               >
                 <img
-                  src="/a_Mother_Spark_button.png"
+                  src="/a_Mother_Spark_Button_2.svg"
                   alt="a Mother"
                 />
               </button>
@@ -219,7 +219,7 @@ const Navbar = () => {
           <div>
             <Link to="/" className="flex justify-center" aria-label="Armonia A home">
               <img
-                src="/armonia_a_logo.png"
+                src="/Armonia_A_Logo_Header.svg"
                 alt="Armonia A"
                 className="w-40 lg:w-80  transition duration-200 "
               />
@@ -232,7 +232,7 @@ const Navbar = () => {
                   className="p-0 border-0 bg-transparent cursor-pointer"
                   aria-label="Open navigation menu"
                 >
-                  <Hamburger size={24} aria-hidden="true" />
+                  <Hamburger size={24} aria-hidden="true" className="text-armonia-sand"/>
                 </button>
               </DialogTrigger>
               {isNavMenuOpen && (

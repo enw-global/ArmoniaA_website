@@ -185,7 +185,7 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
 
       <div className="absolute bottom-0 flex justify-center py-6">
         <button className="cursor-pointer" onClick={onScrollDown} aria-label="Scroll down">
-          <FaChevronDown className="text-white text-3xl" />
+          <FaChevronDown className="text-armonia-sand text-3xl" />
         </button>
       </div>
     </div>

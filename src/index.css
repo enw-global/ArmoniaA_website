@@ -19,11 +19,12 @@ body {
     @apply mx-auto max-w-[97.5%];
   }
 
-  .a-mother-spark-button {
-    @apply [filter:brightness(0)_saturate(100%)_invert(1)]
-    hover:[filter:brightness(0)_saturate(100%)_invert(14%)_sepia(1)_saturate(6500%)_hue-rotate(-7deg)_brightness(100%)_contrast(60%)]
-    active:[filter:brightness(0)_saturate(100%)_invert(14%)_sepia(1)_saturate(6500%)_hue-rotate(-7deg)_brightness(100%)_contrast(60%)] w-12 lg:w-16
-  }
+    .a-mother-spark-button {
+      @apply [filter:brightness(0)_saturate(100%)_invert(87%)_sepia(8%)_saturate(592%)_hue-rotate(5deg)_brightness(96%)_contrast(89%)]
+      hover:[filter:brightness(0)_saturate(100%)_invert(14%)_sepia(1)_saturate(6500%)_hue-rotate(-7deg)_brightness(100%)_contrast(60%)]
+      active:[filter:brightness(0)_saturate(100%)_invert(14%)_sepia(1)_saturate(6500%)_hue-rotate(-7deg)_brightness(100%)_contrast(60%)] w-12 lg:w-16
+    }
+
 }
 
 @layer utilities {

@@ -18,7 +18,7 @@ import Credits from "./Credits";
 import { sanityClient } from "@/lib/sanity";
 import { splitDescription } from "@/utils/utils";
 import Footer from "../footer/Footer";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useToggleDescLayout } from "@/utils/toggleMobileDesc";
 
 interface ArchiveProps {
@@ -27,13 +27,14 @@ interface ArchiveProps {
   peopleInvolved: string[];
   archiveDate: number;
   projectType: string;
-  assetFiles: { url: string; type: string }[];
+  assetFiles: { url: string }[];
 }
 
 const Archive = () => {
   const [error, setError] = useState<string | null>(null);
   const [archivedProjects, setArchivedProjects] = useState<ArchiveProps[]>([]);
-  const { activeItem: showMobileDescription, toggle: toggleMobileDescription } = useToggleDescLayout();
+  const { activeItem: showMobileDescription, toggle: toggleMobileDescription } =
+    useToggleDescLayout();
 
   useEffect(() => {
     setError(null);
@@ -52,17 +53,17 @@ const Archive = () => {
       }`
       )
       .then((data) => {
-        if (data.length > 0) {
+        if (!data || data.length === 0) {
+          setArchivedProjects([])
+        } else {
           setArchivedProjects(data);
         }
-        setArchivedProjects(data);
       })
       .catch((err) => {
-        console.error(err)
+        console.error(err);
         setError("Failed to load archive assets. Please try again later.");
       });
   }, []);
-
 
   const MobileDescriptionToggle = ({
     itemId,
