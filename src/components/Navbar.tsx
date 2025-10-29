@@ -245,17 +245,13 @@ const Navbar = () => {
                   <div className="fixed inset-0 bg-black/100 z-50 w-full h-dvh flex flex-col overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1 xl:grid-cols-[0.75fr_2fr]">
                     <aside
                       id="about-armonia_a"
-                      className="bg-black h-1/2 lg:h-full order-2 lg:order-1 overflow-y-scroll scrollbar-hide"
+                      className="bg-black lg:h-full order-2 lg:order-1 mt-auto"
                       aria-label="About Armonia A"
-                      style={{
-                        scrollbarWidth: "none",
-                        msOverflowStyle: "none",
-                      }}
                     >
-                      <div className="h-full flex flex-col justify-between">
+                      <div className="h-full flex flex-col justify-end lg:justify-between">
                         <div
                           id="about-armonia_a-content"
-                          className="py-2 lg:py-4 px-5 space-y-7 text-armonia-sand "
+                          className="py-5 lg:py-4 px-5 space-y-7 text-armonia-sand"
                         >
                           <div className="space-y-7 hidden lg:block">
                             <h2 className="text-armonia-sand font-bold text-2xl">
@@ -278,13 +274,13 @@ const Navbar = () => {
                             alt="Insignia"
                             className="w-full transition duration-200"
                           />
-                          <p className="mb-5">
+                          <p className="lg:mb-5">
                             European New Wave (ENW) is a cultural movement and
                             creative ecosystem, building one of the most vital
                             communities of our generation.
                           </p>
                         </div>
-                        <footer className="py-4 px-5 space-y-7 text-armonia-sand">
+                        <footer className="lg:py-4 px-5 lg:space-y-7 text-armonia-sand">
                           <div className="hidden lg:flex flex-col">
                             <small>Powered by European New Wave</small>
                             <small>
@@ -293,19 +289,19 @@ const Navbar = () => {
                           </div>
                         </footer>
                         <footer className="flex w-full lg:hidden border-t-2 border-stone-500">
-                          <div className=" flex-1 flex items-center justify-start gap-2 px-5">
+                          <div className="flex-1 flex items-center justify-start gap-2 px-5">
                             <div>
                               <img
                                 src="/Armonia.svg"
                                 alt="Armonia A logo"
-                                className="w-24 h-12 md:w-32 md:h-15 transition duration-200  flex-1"
+                                className="w-24 h-12 md:w-32 md:h-15 transition duration-200 flex-1"
                               />
                             </div>
-                            <div className=" flex-1 flex items-center justify-end  gap-2">
+                            <div className="flex-1 flex items-center justify-end gap-2">
                               <img
                                 src="/A.svg"
                                 alt="Armonia A logo"
-                                className=" h-3.5 md:h-5 transition duration-200 "
+                                className="h-3.5 md:h-5 transition duration-200"
                               />
                             </div>
                           </div>
@@ -317,10 +313,10 @@ const Navbar = () => {
                         </footer>
                       </div>
                     </aside>
-                    <div className="flex flex-col h-1/2 lg:h-full order-1 lg:order-2">
+                    <div className="flex flex-col flex-1 lg:h-full order-1 lg:order-2">
                       <section
                         id="nav-menu"
-                        className="p-4 px-5 bg-armonia-sand h-5/6 flex flex-col items-end overflow-y-auto"
+                        className="p-4 px-5 bg-armonia-sand flex-1 flex flex-col items-end overflow-y-auto"
                         aria-label="Main menu"
                       >
                         <div className="flex flex-row justify-between">
