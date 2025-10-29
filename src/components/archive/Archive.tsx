@@ -258,10 +258,14 @@ const Archive = () => {
                             id="credits-section"
                             className="flex flex-col gap-2"
                           >
-                            <Credits peopleInvolved={project.peopleInvolved} />
+                            
                           </div>
                         )}
                     </MobileDescriptionToggle>
+                    <div className="block md:hidden">
+                      <Credits peopleInvolved={project.peopleInvolved} />
+                    </div>
+                    
 
                     {/* Desktop: Always visible description */}
                     <div className="hidden md:flex flex-col gap-4">

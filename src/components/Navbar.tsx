@@ -90,10 +90,7 @@ const Navbar = () => {
                 className="p-0 border-0 bg-transparent a-mother-spark-button cursor-pointer"
                 aria-label="Open a_Mother information"
               >
-                <img
-                  src="/a_Mother_Spark_Button_2.svg"
-                  alt="a Mother"
-                />
+                <img src="/a_Mother_Spark_Button_2.svg" alt="a Mother" />
               </button>
             </DialogTrigger>
             {isModalOpen && (
@@ -217,7 +214,11 @@ const Navbar = () => {
           </Dialog>
 
           <div>
-            <Link to="/" className="flex justify-center" aria-label="Armonia A home">
+            <Link
+              to="/"
+              className="flex justify-center"
+              aria-label="Armonia A home"
+            >
               <img
                 src="/Armonia_A_Logo_Header.svg"
                 alt="Armonia A"
@@ -232,33 +233,43 @@ const Navbar = () => {
                   className="p-0 border-0 bg-transparent cursor-pointer"
                   aria-label="Open navigation menu"
                 >
-                  <Hamburger size={24} aria-hidden="true" className="text-armonia-sand"/>
+                  <Hamburger
+                    size={24}
+                    aria-hidden="true"
+                    className="text-armonia-sand"
+                  />
                 </button>
               </DialogTrigger>
               {isNavMenuOpen && (
                 <>
-                  <div className="fixed inset-0 bg-black/100 z-50 w-full h-full flex flex-col overflow-y-auto lg:grid lg:grid-cols-2 lg:grid-rows-1 lg:overflow-hidden xl:grid-cols-[0.75fr_2fr]">
+                  <div className="fixed inset-0 bg-black/100 z-50 w-full h-dvh flex flex-col overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1 xl:grid-cols-[0.75fr_2fr]">
                     <aside
                       id="about-armonia_a"
-                      className="bg-black min-h-[80vh] lg:min-h-0 lg:h-full order-2 lg:order-1"
+                      className="bg-black h-1/2 lg:h-full order-2 lg:order-1 overflow-y-scroll scrollbar-hide"
                       aria-label="About Armonia A"
+                      style={{
+                        scrollbarWidth: "none",
+                        msOverflowStyle: "none",
+                      }}
                     >
                       <div className="h-full flex flex-col justify-between">
                         <div
                           id="about-armonia_a-content"
-                          className="py-4 px-5 space-y-7 text-armonia-sand"
+                          className="py-2 lg:py-4 px-5 space-y-7 text-armonia-sand "
                         >
-                          <h2 className="text-armonia-sand font-bold text-2xl">
-                            About Us
-                          </h2>
-                          <img
-                            src="/aa_logo.svg"
-                            alt="Armonia A aa logo"
-                            className="w-24 h-12 sm:w-36 sm:h-auto md:w-40 md:h-20 transition duration-200"
-                          />
+                          <div className="space-y-7 hidden lg:block">
+                            <h2 className="text-armonia-sand font-bold text-2xl">
+                              About Us
+                            </h2>
+                            <img
+                              src="/aa_logo.svg"
+                              alt="Armonia A aa logo"
+                              className="w-24 h-12 sm:w-36 sm:h-auto md:w-40 md:h-20 transition duration-200"
+                            />
+                          </div>
                           <p>
-                            <strong className="font-bold">Armonia A</strong> is the
-                            future advance studio where ideas become
+                            <strong className="font-bold">Armonia A</strong> is
+                            the future advance studio where ideas become
                             expressions, offering new forms of meaning and
                             possibility.
                           </p>
@@ -273,12 +284,12 @@ const Navbar = () => {
                             communities of our generation.
                           </p>
                         </div>
-                        <footer
-                          className="py-4 px-5 space-y-7 text-armonia-sand"
-                        >
+                        <footer className="py-4 px-5 space-y-7 text-armonia-sand">
                           <div className="hidden lg:flex flex-col">
                             <small>Powered by European New Wave</small>
-                            <small>&copy; {getCopyrightYear()} armonia-a.com</small>
+                            <small>
+                              &copy; {getCopyrightYear()} armonia-a.com
+                            </small>
                           </div>
                         </footer>
                         <footer className="flex w-full lg:hidden border-t-2 border-stone-500">
@@ -306,10 +317,10 @@ const Navbar = () => {
                         </footer>
                       </div>
                     </aside>
-                    <div className="flex flex-col min-h-[80vh] lg:min-h-0 order-1 lg:order-2">
+                    <div className="flex flex-col h-1/2 lg:h-full order-1 lg:order-2">
                       <section
                         id="nav-menu"
-                        className="p-4 px-5 bg-armonia-sand h-full flex flex-col flex-5/6 items-end"
+                        className="p-4 px-5 bg-armonia-sand h-5/6 flex flex-col items-end overflow-y-auto"
                         aria-label="Main menu"
                       >
                         <div className="flex flex-row justify-between">
@@ -376,7 +387,7 @@ const Navbar = () => {
                           </ul>
                         </nav>
                       </section>
-                      <section className="hidden lg:flex bg-black h-full w-full flex-1/8 justify-end items-end px-5 border-l-1 border-armonia-sand">
+                      <section className="hidden lg:flex bg-black h-1/6 w-full justify-end items-end px-5 border-l-1 border-armonia-sand">
                         <div className=" h-full flex items-end justify-end">
                           <img
                             src="/Armonia.svg"

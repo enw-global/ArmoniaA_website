@@ -40,7 +40,7 @@ const Newsletter = () => {
   return (
     <div className="flex flex-col items-center space-y-10 w-sm">
       <h2 className="text-[24px] font-medium text-armonia-sand">
-        Subscribe to our Mailing List
+        Email Sign-up
       </h2>
 
       <form onSubmit={handleSubmit} className="w-[80%] lg:w-full">
