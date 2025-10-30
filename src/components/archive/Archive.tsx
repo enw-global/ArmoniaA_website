@@ -202,7 +202,7 @@ const Archive = () => {
                         <img
                           src={project.assetFiles[0].url}
                           alt={project.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain max-h-[600px]"
                         />
                       ) : (
                         // Multiple images - Carousel

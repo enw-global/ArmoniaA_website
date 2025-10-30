@@ -58,6 +58,8 @@ function Carousel({
   )
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [isHovering, setIsHovering] = React.useState(false)
+  const carouselDivRef = React.useRef<HTMLDivElement>(null)
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return
@@ -84,6 +86,70 @@ function Carousel({
       }
     },
     [scrollPrev, scrollNext]
+  )
+
+  // Native wheel event handler to properly prevent scroll
+  React.useEffect(() => {
+    const carouselDiv = carouselDivRef.current
+    if (!carouselDiv) return
+
+    const handleNativeWheel = (event: WheelEvent) => {
+      // Only prevent default when hovering and on desktop
+      if (window.innerWidth >= 768 && isHovering) {
+        event.preventDefault()
+        
+        // Horizontal scrolling: use deltaX or deltaY
+        if (orientation === "horizontal") {
+          if (event.deltaY > 0 || event.deltaX > 0) {
+            scrollNext()
+          } else if (event.deltaY < 0 || event.deltaX < 0) {
+            scrollPrev()
+          }
+        } else {
+          // Vertical scrolling
+          if (event.deltaY > 0) {
+            scrollNext()
+          } else if (event.deltaY < 0) {
+            scrollPrev()
+          }
+        }
+      }
+    }
+
+    // Add listener with passive: false to allow preventDefault
+    carouselDiv.addEventListener('wheel', handleNativeWheel, { passive: false })
+
+    return () => {
+      carouselDiv.removeEventListener('wheel', handleNativeWheel)
+    }
+  }, [isHovering, orientation, scrollNext, scrollPrev])
+
+  const handleWheel = React.useCallback(
+    (event: React.WheelEvent<HTMLDivElement>) => {
+      // Only enable wheel scrolling on desktop (screen width >= 768px) and when hovering
+      if (window.innerWidth < 768 || !isHovering) return
+
+      // Prevent page scrolling and stop event propagation when hovering over carousel
+      event.preventDefault()
+      event.stopPropagation()
+      
+      // Horizontal scrolling: use deltaX or deltaY
+      if (orientation === "horizontal") {
+        if (event.deltaY > 0 || event.deltaX > 0) {
+          scrollNext()
+        } else if (event.deltaY < 0 || event.deltaX < 0) {
+          scrollPrev()
+        }
+      } else {
+        // Vertical scrolling
+        if (event.deltaY > 0) {
+          scrollNext()
+        } else if (event.deltaY < 0) {
+          scrollPrev()
+        }
+      }
+    },
+    [orientation, scrollNext, scrollPrev, isHovering]
   )
 
   React.useEffect(() => {
@@ -117,7 +183,11 @@ function Carousel({
       }}
     >
       <div
+        ref={carouselDivRef}
         onKeyDownCapture={handleKeyDown}
+        onWheel={handleWheel}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         className={cn("relative", className)}
         role="region"
         aria-roledescription="carousel"
@@ -183,7 +253,7 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute size-8 rounded-full hidden md:flex",
         orientation === "horizontal"
           ? "top-1/2 -left-12 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -213,7 +283,7 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute size-8 rounded-full hidden md:flex",
         orientation === "horizontal"
           ? "top-1/2 -right-12 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
