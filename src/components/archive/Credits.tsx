@@ -1,7 +1,7 @@
 const Credits = ({ peopleInvolved }: { peopleInvolved: string[] }) => {
   return (
     <>
-      <h3 className="font-bold text-lg">Credits:</h3>
+      <h3 className="font-regular text-lg">Credits:</h3>
       <ul className="flex flex-row flex-wrap gap-2">
         {peopleInvolved.map((person) => (
           <li

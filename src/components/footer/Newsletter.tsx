@@ -40,7 +40,7 @@ const Newsletter = () => {
   return (
     <div className="flex flex-col items-center space-y-10 w-sm">
       <h2 className="text-[24px] font-medium text-armonia-sand">
-        Subscribe to our Mailing List
+        Email Sign-up
       </h2>
 
       <form onSubmit={handleSubmit} className="w-[80%] lg:w-full">
@@ -77,7 +77,7 @@ const Newsletter = () => {
         <a
           id="email-link"
           className="text-armonia-sand text-2xl hover:opacity-80 transition-opacity"
-          href="mailto:info@europeannewwave.com"
+          href="mailto:european.new.wave@gmail.com"
           aria-label="Send us an email"
         >
           <MdOutlineEmail />
@@ -102,7 +102,7 @@ const Newsletter = () => {
         </a>
         <a
           target="_blank"
-          href="https://www.youtube.com/@europeannewwave"
+          href="https://www.youtube.com/@european.new.wave.official"
           className="text-armonia-sand text-2xl hover:opacity-80 transition-opacity"
           rel="noopener noreferrer"
           aria-label="Subscribe to our YouTube channel"
