@@ -18,8 +18,9 @@ import Credits from "./Credits";
 import { sanityClient } from "@/lib/sanity";
 import { splitDescription } from "@/utils/utils";
 import Footer from "../footer/Footer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useToggleDescLayout } from "@/utils/toggleMobileDesc";
+import { FaChevronDown } from "react-icons/fa6";
 
 interface ArchiveProps {
   title: string;
@@ -35,6 +36,11 @@ const Archive = () => {
   const [archivedProjects, setArchivedProjects] = useState<ArchiveProps[]>([]);
   const { activeItem: showMobileDescription, toggle: toggleMobileDescription } =
     useToggleDescLayout();
+
+  const archiveProjectsRef = useRef<HTMLDivElement>(null);
+  const scrollToArchiveProjects = () => {
+    archiveProjectsRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     setError(null);
@@ -54,7 +60,7 @@ const Archive = () => {
       )
       .then((data) => {
         if (!data || data.length === 0) {
-          setArchivedProjects([])
+          setArchivedProjects([]);
         } else {
           setArchivedProjects(data);
         }
@@ -108,6 +114,9 @@ const Archive = () => {
           alt="Illustration"
           className="opacity-[65%] w-full h-full object-cover"
         />
+        <button className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer hover:opacity-80 transition-opacity z-10" onClick={scrollToArchiveProjects} aria-label="Scroll down">
+          <FaChevronDown className="text-armonia-sand text-4xl bg-black/50 rounded-full p-2" />
+        </button>
       </section>
       <section className="w-full flex items-center justify-end px-5 py-20">
         <img
@@ -117,7 +126,7 @@ const Archive = () => {
         />
       </section>
       <div id="archive-contents" className="px-4">
-        <section className="pb-20 w-full justify-evenly text-armonia-sand font-bold">
+        <section className="pb-20 w-full justify-evenly text-armonia-sand font-bold"  ref={archiveProjectsRef}>
           {/* Mobile Layout */}
           <div className="flex md:hidden justify-between">
             <div className="text-left">
@@ -257,15 +266,12 @@ const Archive = () => {
                           <div
                             id="credits-section"
                             className="flex flex-col gap-2"
-                          >
-                            
-                          </div>
+                          ></div>
                         )}
                     </MobileDescriptionToggle>
                     <div className="block md:hidden">
                       <Credits peopleInvolved={project.peopleInvolved} />
                     </div>
-                    
 
                     {/* Desktop: Always visible description */}
                     <div className="hidden md:flex flex-col gap-4">
