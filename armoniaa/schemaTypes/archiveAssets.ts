@@ -13,7 +13,7 @@ export default defineType({
         {
             name: 'description',
             title: 'Description',
-            type: 'string',
+            type: 'text',
         },
         {
             name: 'peopleInvolved',
