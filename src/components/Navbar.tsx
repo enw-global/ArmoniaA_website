@@ -367,7 +367,7 @@ const Navbar = () => {
                             <li>
                               <Link
                                 to="/"
-                                className=" font-bold hover:text-[#041DFE] transition-colors"
+                                className=" font-bold active:text-[#041DFE] transition-colors"
                                 onClick={() => setIsNavMenuOpen(false)}
                               >
                                 Home
@@ -376,7 +376,7 @@ const Navbar = () => {
                             <li>
                               <Link
                                 to="/archive"
-                                className=" font-bold hover:text-[#041DFE] transition-colors"
+                                className=" font-bold active:text-[#041DFE] transition-colors"
                                 onClick={() => setIsNavMenuOpen(false)}
                               >
                                 Archive
