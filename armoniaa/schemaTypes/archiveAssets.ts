@@ -40,7 +40,7 @@ export default defineType({
                 {
                     type: 'file',
                     options: {
-                        accept: 'image/tiff, image/svg+xml, image/png, image/jpeg',
+                        accept: 'image/tiff, image/svg+xml, image/png, image/jpeg, image/gif',
                     },
                 },
             ],
