@@ -7,9 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'armonia_a',
 
-  projectId: process.env.SANITY_PROJECT_ID! || 'kfip38fi',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
   dataset: process.env.SANITY_STUDIO_DATASET!,
-
   plugins: [structureTool(), visionTool()],
 
   schema: {
