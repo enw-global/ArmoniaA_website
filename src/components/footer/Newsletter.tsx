@@ -38,7 +38,7 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-10 w-sm">
+    <div className="flex flex-col my-32 items-center space-y-10 w-sm">
       <h2 className="text-[24px] font-medium text-armonia-sand">
         Email Sign-up
       </h2>

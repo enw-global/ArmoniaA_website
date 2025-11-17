@@ -1,7 +1,7 @@
 import { Suspense, useRef } from "react";
 import Footer from "../footer/Footer";
 import ProjectInfo from "../info/ProjectInfo";
-import MouseFollowCountdown from "../MouseFollowCountdown";
+// import MouseFollowCountdown from "../MouseFollowCountdown";
 import { ToastContainer } from "react-toastify";
 import { lazy } from "react";
 import Loading from "../Loading";
@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <ToastContainer position="top-center" />
-      <MouseFollowCountdown targetDate={target} />
+      {/* <MouseFollowCountdown targetDate={target} /> */}
       <Suspense fallback={<Loading />}>
         <Hero targetDate={target} onScrollDown={scrollToProjectInfo} />
       </Suspense>

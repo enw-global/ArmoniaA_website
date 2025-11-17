@@ -2,7 +2,7 @@
 const splitDescription = (description: string) => {
   const words = description.split(/\s+/);
   const wordCount = words.length;
-  if (wordCount <= 200) {
+  if (wordCount <= 50) {
     return { column1: description, column2: null };
   }
   const splitIndex = Math.ceil(wordCount / 2);
