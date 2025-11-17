@@ -122,7 +122,7 @@ const Archive = () => {
         <img
           src="/AA_ARCHIVE.svg"
           alt="AA_ARCHIVE"
-          className="max-w-[53vw] h-auto"
+          className="w-full md:max-w-[53vw] h-auto"
         />
       </section>
       <div id="archive-contents" className="px-4">
@@ -211,7 +211,7 @@ const Archive = () => {
                         <img
                           src={project.assetFiles[0].url}
                           alt={project.title}
-                          className="w-full h-full object-contain max-h-[600px]"
+                          className="w-full h-full lg:h-[600px] object-contain"
                         />
                       ) : (
                         // Multiple images - Carousel

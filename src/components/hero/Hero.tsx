@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, memo } from "react";
 import { sanityClient } from "../../lib/sanity";
 import { FaChevronDown } from "react-icons/fa6";
-import CountdownTimer from "../CountdownTimer";
+// import CountdownTimer from "../CountdownTimer";
 
 interface VideoAsset {
   _id: string;
@@ -178,9 +178,9 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
             />
           </a>
         </div>
-        <div>
+        {/* <div>
           <CountdownTimer targetDate={targetDate} />
-        </div>
+        </div> */}
       </section>
 
       <div className="absolute bottom-0 flex justify-center py-6">

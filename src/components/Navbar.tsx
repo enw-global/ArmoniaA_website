@@ -280,15 +280,16 @@ const Navbar = () => {
                             communities of our generation.
                           </p>
                         </div>
-                        <footer className="lg:py-4 px-5 lg:space-y-7 text-armonia-sand">
+                        <div className="lg:py-4 px-5 lg:space-y-7 text-armonia-sand">
                           <div className="hidden lg:flex flex-col">
                             <small>Powered by European New Wave</small>
                             <small>
                               &copy; {getCopyrightYear()} armonia-a.com
                             </small>
                           </div>
-                        </footer>
-                        <footer className="flex w-full lg:hidden border-t-2 border-stone-500">
+                        </div>
+                        {/* Mobile & Tablet Nav Copyright */}
+                        <div className="flex w-full lg:hidden border-t-2 border-stone-500">
                           <div className="flex-1 flex items-center justify-start gap-2 px-5">
                             <div>
                               <img
@@ -305,12 +306,13 @@ const Navbar = () => {
                               />
                             </div>
                           </div>
+                          {/* Mobile & Tablet */}
                           <div className="flex-1 justify-center md:justify-start items-center flex px-5 border-l-2 border-stone-500">
-                            <p className="text-sm md:text-md font-light text-armonia-sand">
+                            <p className="text-xs md:text-sm font-light text-armonia-sand">
                               &copy; {getCopyrightYear()} armonia-a.com
                             </p>
                           </div>
-                        </footer>
+                        </div>
                       </div>
                     </aside>
                     <div className="flex flex-col flex-1 lg:h-full order-1 lg:order-2">
@@ -365,7 +367,7 @@ const Navbar = () => {
                             <li>
                               <Link
                                 to="/"
-                                className=" font-bold hover:text-gray-800 transition-colors"
+                                className=" font-bold hover:text-[#041DFE] transition-colors"
                                 onClick={() => setIsNavMenuOpen(false)}
                               >
                                 Home
@@ -374,7 +376,7 @@ const Navbar = () => {
                             <li>
                               <Link
                                 to="/archive"
-                                className=" font-bold hover:text-gray-800 transition-colors"
+                                className=" font-bold hover:text-[#041DFE] transition-colors"
                                 onClick={() => setIsNavMenuOpen(false)}
                               >
                                 Archive
