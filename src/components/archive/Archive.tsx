@@ -227,7 +227,7 @@ const Archive = () => {
                                     <img
                                       src={asset.url}
                                       alt={`${project.title} - Asset ${assetIndex + 1}`}
-                                      className="w-auto object-contain max-h-[80vh] max-w-full"
+                                      className="w-auto object-contain max-h-[250px] md:max-h-[600px] max-w-full"
                                       style={{
                                         height: "auto",
                                         display: "block",
