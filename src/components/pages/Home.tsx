@@ -9,7 +9,7 @@ import Loading from "../Loading";
 const Hero = lazy(() => import("../hero/Hero"));
 
 const Home = () => {
-  const target = new Date("2025-09-02T00:00:00");
+  // const target = new Date("2025-09-02T00:00:00");
   const projectInfoRef = useRef<HTMLDivElement>(null);
 
   const scrollToProjectInfo = () => {
@@ -21,7 +21,7 @@ const Home = () => {
       <ToastContainer position="top-center" />
       {/* <MouseFollowCountdown targetDate={target} /> */}
       <Suspense fallback={<Loading />}>
-        <Hero targetDate={target} onScrollDown={scrollToProjectInfo} />
+        <Hero onScrollDown={scrollToProjectInfo} />
       </Suspense>
       <div ref={projectInfoRef}>
         <ProjectInfo/>

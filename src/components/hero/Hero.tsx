@@ -10,7 +10,7 @@ interface VideoAsset {
 }
 
 interface HeroProps {
-  targetDate: Date;
+  // targetDate: Date;
   onScrollDown: () => void;
 }
 
@@ -113,7 +113,7 @@ const VideoPlayer = memo(({ src, className }: { src: string; className: string }
 
 VideoPlayer.displayName = 'VideoPlayer';
 
-const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
+const Hero = ({onScrollDown }: HeroProps) => {
   const [video, setVideo] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
