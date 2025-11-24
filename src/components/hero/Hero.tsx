@@ -128,7 +128,6 @@ const Hero = ({onScrollDown }: HeroProps) => {
       .then((results) => {
         if (results.videoFile) {
           setVideo(results?.videoFile ?? null);
-          console.log("Fetched hero video URL:", results.videoFile ?? "None");
         } else {
           setError("No video assets found");
         }
