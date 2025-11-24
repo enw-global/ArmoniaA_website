@@ -3,11 +3,7 @@ import { sanityClient } from "../../lib/sanity";
 import { FaChevronDown } from "react-icons/fa6";
 // import CountdownTimer from "../CountdownTimer";
 
-interface VideoAsset {
-  _id: string;
-  title: string;
-  url: string;
-}
+
 
 interface HeroProps {
   // targetDate: Date;
