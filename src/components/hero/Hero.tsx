@@ -95,7 +95,7 @@ const VideoPlayer = memo(({ src, className }: { src: string; className: string }
       muted
       loop
       playsInline
-      preload="auto"
+      preload="metadata"
       autoPlay
       controls={false}
       controlsList="nodownload nofullscreen noremoteplayback"
@@ -123,12 +123,16 @@ const Hero = ({onScrollDown }: HeroProps) => {
     const controller = new AbortController();
     
     sanityClient
-      .fetch<VideoAsset[]>(
-        `*[_type == "videoAsset"]{ title, "url": videoFile.asset->url }`
+      // .fetch<VideoAsset[]>(
+      //   `*[_type == "videoAsset"]{ title, "url": videoFile.asset->url }`
+      // )
+      .fetch<{ videoFile: string }>(
+        `*[_type == "videoAsset"][0]{videoFile}`
       )
       .then((results) => {
-        if (results.length > 0) {
-          setVideo(results[0].url);
+        if (results.videoFile) {
+          setVideo(results?.videoFile ?? null);
+          console.log("Fetched hero video URL:", results.videoFile ?? "None");
         } else {
           setError("No video assets found");
         }

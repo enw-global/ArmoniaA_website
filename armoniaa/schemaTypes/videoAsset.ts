@@ -13,10 +13,9 @@ export default defineType({
     {
       name: 'videoFile',
       title: 'Video File',
-      type: 'file',
-      options: {
-        accept: 'video/mp4, video/quicktime',
-      },
+      description: 'URL to the video file from S3',
+      type: 'url',
+      validation: (Rule) => Rule.uri({scheme: ['http', 'https']}),
     },
   ],
 })

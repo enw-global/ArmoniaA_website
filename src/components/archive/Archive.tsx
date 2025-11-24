@@ -22,6 +22,8 @@ import { useState, useEffect, useRef } from "react";
 import { useToggleDescLayout } from "@/utils/toggleMobileDesc";
 import { FaChevronDown } from "react-icons/fa6";
 
+import { urlFor } from "@/lib/sanity";
+
 interface ArchiveProps {
   title: string;
   description: string;
@@ -114,7 +116,11 @@ const Archive = () => {
           alt="Illustration"
           className="opacity-[65%] w-full h-full object-cover"
         />
-        <button className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer hover:opacity-80 transition-opacity z-10" onClick={scrollToArchiveProjects} aria-label="Scroll down">
+        <button
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer hover:opacity-80 transition-opacity z-10"
+          onClick={scrollToArchiveProjects}
+          aria-label="Scroll down"
+        >
           <FaChevronDown className="text-armonia-sand text-4xl bg-black/50 rounded-full p-2" />
         </button>
       </section>
@@ -126,7 +132,10 @@ const Archive = () => {
         />
       </section>
       <div id="archive-contents" className="px-4">
-        <section className="pb-20 w-full justify-evenly text-armonia-sand font-bold"  ref={archiveProjectsRef}>
+        <section
+          className="pb-20 w-full justify-evenly text-armonia-sand font-bold"
+          ref={archiveProjectsRef}
+        >
           {/* Mobile Layout */}
           <div className="flex md:hidden justify-between">
             <div className="text-left">
@@ -206,46 +215,56 @@ const Archive = () => {
                   <AccordionContent className="flex flex-col gap-4 text-balance">
                     {/* Render Assets */}
                     <div className="relative w-full">
-                      {project.assetFiles.length === 1 ? (
-                        // Single image
-                        <img
-                          src={project.assetFiles[0].url}
-                          alt={project.title}
-                          className="w-full h-full lg:h-[600px] object-contain"
-                        />
-                      ) : (
-                        // Multiple images - Carousel
-                        <Carousel className="w-full">
-                          <CarouselContent className="flex items-start">
-                            {project.assetFiles.map((asset, assetIndex) => (
-                              <CarouselItem
-                                key={assetIndex}
-                                className="flex-none mr-4"
-                              >
-                                <Card className="w-auto p-0 border-0">
-                                  <CardContent className="p-0">
-                                    <img
-                                      src={asset.url}
-                                      alt={`${project.title} - Asset ${assetIndex + 1}`}
-                                      className="w-auto object-contain max-h-[250px] md:max-h-[450px] max-w-full"
-                                      style={{
-                                        height: "auto",
-                                        display: "block",
-                                      }}
-                                    />
-                                  </CardContent>
-                                </Card>
-                              </CarouselItem>
-                            ))}
-                          </CarouselContent>
-                          {project.assetFiles.length > 1 && (
-                            <>
-                              <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
-                              <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
-                            </>
-                          )}
-                        </Carousel>
-                      )}
+                      {project.assetFiles ? (
+                        project.assetFiles.length === 1 ? (
+                          // Single image
+                          <img
+                            src={urlFor(project.assetFiles[0].url)
+                              .width(1200)
+                              .quality(80)
+                              .format("webp")
+                              .url()}
+                            alt={project.title}
+                            className="w-full h-full lg:h-[600px] object-contain"
+                          />
+                        ) : (
+                          // Multiple images - Carousel
+                          <Carousel className="w-full">
+                            <CarouselContent className="flex items-start">
+                              {project.assetFiles.map((asset, assetIndex) => (
+                                <CarouselItem
+                                  key={assetIndex}
+                                  className="flex-none mr-4"
+                                >
+                                  <Card className="w-auto p-0 border-0">
+                                    <CardContent className="p-0">
+                                      <img
+                                        src={urlFor(asset.url)
+                                          .width(1200)
+                                          .quality(80)
+                                          .format("webp")
+                                          .url()}
+                                        alt={`${project.title} - Asset ${assetIndex + 1}`}
+                                        className="w-auto object-contain max-h-[250px] md:max-h-[450px] max-w-full"
+                                        style={{
+                                          height: "auto",
+                                          display: "block",
+                                        }}
+                                      />
+                                    </CardContent>
+                                  </Card>
+                                </CarouselItem>
+                              ))}
+                            </CarouselContent>
+                            {project.assetFiles.length > 1 && (
+                              <>
+                                <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
+                                <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+                              </>
+                            )}
+                          </Carousel>
+                        )
+                      ) : null}
                     </div>
 
                     {/* Mobile: Show/Hide Description */}
