@@ -36,13 +36,26 @@ interface ArchiveProps {
 const Archive = () => {
   const [error, setError] = useState<string | null>(null);
   const [archivedProjects, setArchivedProjects] = useState<ArchiveProps[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
   const { activeItem: showMobileDescription, toggle: toggleMobileDescription } =
     useToggleDescLayout();
+
 
   const archiveProjectsRef = useRef<HTMLDivElement>(null);
   const scrollToArchiveProjects = () => {
     archiveProjectsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     setError(null);
@@ -110,10 +123,10 @@ const Archive = () => {
 
   return (
     <div className="flex flex-col">
-      <section className="h-screen w-full">
+      <section className="h-screen w-full relative">
         <img
-          src="/illustration.svg"
-          alt="Illustration"
+          src={isMobile ? "/Rebirth.jpg" : "/illustration.svg"}
+          alt={isMobile ? "Rebirth" : "Illustration"}
           className="opacity-[65%] w-full h-full object-cover"
         />
         <button
