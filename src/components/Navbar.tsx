@@ -8,8 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../components/ui/dialog";
-import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
 import { getCopyrightYear } from "@/utils/utils";
+import MenuToggleIcon from "./MenuToggleIcon";
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -38,8 +38,8 @@ const Navbar = () => {
 
       const rect = dialog.getBoundingClientRect();
 
-      let newX = position.x + velocity.x;
-      let newY = position.y + velocity.y;
+      const newX = position.x + velocity.x;
+      const newY = position.y + velocity.y;
 
       if (newX <= 0 || newX + rect.width >= innerWidth) {
         setVelocity((v) => ({ ...v, x: -v.x }));
@@ -228,18 +228,21 @@ const Navbar = () => {
           </div>
           <div className="cursor-pointer">
             <Dialog open={isNavMenuOpen} onOpenChange={setIsNavMenuOpen}>
-              <DialogTrigger asChild>
-                <button
-                  className="p-0 border-0 bg-transparent cursor-pointer"
-                  aria-label="Open navigation menu"
-                >
-                  <Hamburger
-                    size={24}
-                    aria-hidden="true"
-                    className="text-armonia-sand"
-                  />
-                </button>
-              </DialogTrigger>
+              <button
+                type="button"
+                onClick={() => setIsNavMenuOpen((open) => !open)}
+                className="relative z-[60] p-0 border-0 bg-transparent cursor-pointer"
+                aria-label={
+                  isNavMenuOpen ? "Close navigation menu" : "Open navigation menu"
+                }
+                aria-expanded={isNavMenuOpen}
+              >
+                <MenuToggleIcon
+                  isOpen={isNavMenuOpen}
+                  size={24}
+                  className={isNavMenuOpen ? "bg-black" : "bg-armonia-sand"}
+                />
+              </button>
               {isNavMenuOpen && (
                 <>
                   <div className="fixed inset-0 bg-black/100 z-50 w-full h-dvh flex flex-col overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1 xl:grid-cols-[0.75fr_2fr]">
@@ -321,48 +324,8 @@ const Navbar = () => {
                         className="p-4 px-5 bg-armonia-sand flex-1 flex flex-col items-end overflow-y-auto"
                         aria-label="Main menu"
                       >
-                        <div className="flex flex-row justify-between">
-                          <button
-                            onClick={() => setIsNavMenuOpen(false)}
-                            aria-label="Close navigation menu"
-                            className="hover:bg-black rounded transition p-1 flex-shrink-0"
-                            style={{
-                              background: "transparent",
-                              border: "none",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="black"
-                              xmlns="http://www.w3.org/2000/svg"
-                              aria-hidden="true"
-                            >
-                              <line
-                                x1="6"
-                                y1="6"
-                                x2="18"
-                                y2="18"
-                                stroke="black"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                              <line
-                                x1="6"
-                                y1="18"
-                                x2="18"
-                                y2="6"
-                                stroke="black"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                          </button>
-                        </div>
                         {/* Navbar Links */}
-                        <nav className="flex-1" aria-label="Primary navigation">
+                        <nav className="flex-1 mt-10" aria-label="Primary navigation">
                           <ul className="flex flex-col gap-3 text-black items-end uppercase text-5xl lg:text-7xl">
                             <li>
                               <Link
