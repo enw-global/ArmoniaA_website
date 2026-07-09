@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef, memo } from "react";
 import { sanityClient } from "../../lib/sanity";
 import { FaChevronDown } from "react-icons/fa6";
-import CountdownTimer from "../CountdownTimer";
+// import CountdownTimer from "../CountdownTimer";
+
+
 
 interface HeroProps {
-  targetDate: Date;
+  // targetDate: Date;
   onScrollDown: () => void;
 }
 
@@ -89,7 +91,7 @@ const VideoPlayer = memo(({ src, className }: { src: string; className: string }
       muted
       loop
       playsInline
-      preload="auto"
+      preload="metadata"
       autoPlay
       controls={false}
       controlsList="nodownload nofullscreen noremoteplayback"
@@ -107,7 +109,7 @@ const VideoPlayer = memo(({ src, className }: { src: string; className: string }
 
 VideoPlayer.displayName = 'VideoPlayer';
 
-const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
+const Hero = ({onScrollDown }: HeroProps) => {
   const [video, setVideo] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -117,12 +119,15 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
     const controller = new AbortController();
     
     sanityClient
+      // .fetch<VideoAsset[]>(
+      //   `*[_type == "videoAsset"]{ title, "url": videoFile.asset->url }`
+      // )
       .fetch<{ videoFile: string }>(
         `*[_type == "videoAsset"][0]{videoFile}`
       )
       .then((results) => {
-        if (results?.videoFile) {
-          setVideo(results.videoFile ?? null);
+        if (results.videoFile) {
+          setVideo(results?.videoFile ?? null);
         } else {
           setError("No video assets found");
         }
@@ -172,14 +177,14 @@ const Hero = ({ targetDate, onScrollDown }: HeroProps) => {
             />
           </a>
         </div>
-        <div>
+        {/* <div>
           <CountdownTimer targetDate={targetDate} />
-        </div>
+        </div> */}
       </section>
 
       <div className="absolute bottom-0 flex justify-center py-6">
         <button className="cursor-pointer" onClick={onScrollDown} aria-label="Scroll down">
-          <FaChevronDown className="text-white text-3xl" />
+          <FaChevronDown className="text-armonia-sand text-3xl" />
         </button>
       </div>
     </div>

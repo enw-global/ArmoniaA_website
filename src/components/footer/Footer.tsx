@@ -1,7 +1,3 @@
-import Logo1 from "../../assets/logos/Logo_1.png";
-import Logo2 from "../../assets/logos/Logo_2.png";
-import Logo3 from "../../assets/logos/Logo_3.png";
-import Logo4 from "../../assets/logos/Logo_4.png";
 import Newsletter from "./Newsletter";
 
 const Footer = () => {
@@ -13,10 +9,12 @@ const Footer = () => {
       </div>
       <div className=" flex justify-center items-center">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-10 px-5 lg:px-10 place-items-center">
-          <img src={Logo1} alt="" />
-          <img src={Logo2} alt="" />
-          <img src={Logo3} alt="" />
-          <img src={Logo4} alt="" className="max-w-[75%]" />
+          {...Array.from({ length: 3 }).map((_, index) => {
+            return (
+              <img src={`/Logo${index + 1}.svg`} alt={`Logo ${index + 1}`} />
+            );
+          })}
+          <img src="/Logo4.svg" alt="Logo 4" className="max-w-[75%]" />
         </div>
       </div>
 
